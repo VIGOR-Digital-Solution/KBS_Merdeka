@@ -1,0 +1,4091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Karnival Belia & Keusahawanan Sungai Petani 2026 — Interactive Proposal</title>
+<meta name="description" content="Flagship youth entrepreneurship & sports carnival at C-Mart Premium @ Amanjaya Mall. Presented by Vigor Digital Solution Sdn Bhd." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* =================================================================
+   DESIGN TOKENS — STATECRAFT MODERN
+   ================================================================= */
+:root {
+  /* Base surfaces */
+  --ink-void: #070a11;
+  --ink-deep: #0a0e17;
+  --ink-rise: #111723;
+  --ink-panel: #161d2c;
+  --ink-line: #232c3e;
+  --ink-hairline: rgba(244, 236, 220, 0.08);
+
+  /* Foreground */
+  --paper: #f4ecdc;
+  --paper-muted: #d8cfbe;
+  --paper-dim: rgba(244, 236, 220, 0.62);
+  --paper-faint: rgba(244, 236, 220, 0.38);
+
+  /* Accents — aged gold leaf, Malaysian flag reds & blues */
+  --gold: #c9a961;
+  --gold-bright: #e6c77a;
+  --gold-deep: #8f7537;
+  --gold-glow: rgba(201, 169, 97, 0.22);
+
+  --red: #cc0e2a;          /* Jalur Gemilang red */
+  --red-deep: #8a0b20;
+  --blue: #1e3a6f;         /* Jalur Gemilang blue */
+  --blue-deep: #13254a;
+
+  /* Zone semantic */
+  --c-fnb: #d94830;
+  --c-handcraft: #b07a3d;
+  --c-cultural: #6b9b4a;
+  --c-tech: #3d7eb5;
+  --c-sports: #c9a961;
+  --c-ops: #7e6a92;
+  --c-stage: #e6c77a;
+
+  /* Geometry */
+  --grid-pitch: 48px;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  /* Type scale */
+  --serif: 'Fraunces', 'Playfair Display', Georgia, serif;
+  --sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+/* =================================================================
+   RESET & BASE
+   ================================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink-void);
+  color: var(--paper);
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+::selection { background: var(--gold); color: var(--ink-void); }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+/* Atmospheric canvas background — faint dot grid + vignette */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 50% 50%, rgba(244, 236, 220, 0.055) 1px, transparent 1.5px);
+  background-size: var(--grid-pitch) var(--grid-pitch);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201, 169, 97, 0.06) 0%, transparent 55%),
+              radial-gradient(ellipse at 50% 100%, rgba(30, 58, 111, 0.10) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =================================================================
+   LOADER
+   ================================================================= */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--ink-void);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 28px;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+.loader.done { opacity: 0; visibility: hidden; }
+.loader-crest {
+  width: 64px; height: 64px;
+  position: relative;
+}
+.loader-crest::before, .loader-crest::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0.4;
+}
+.loader-crest::after {
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.loader-mark {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.4); opacity: 0; }
+}
+.loader-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+.loader-bar {
+  width: 160px; height: 1px;
+  background: var(--ink-line);
+  overflow: hidden;
+}
+.loader-bar::before {
+  content: '';
+  display: block; height: 100%; width: 30%;
+  background: var(--gold);
+  animation: loader-sweep 1.6s ease-in-out infinite;
+}
+@keyframes loader-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(450%); }
+}
+
+/* =================================================================
+   NAVIGATION
+   ================================================================= */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(180deg, rgba(7, 10, 17, 0.92) 0%, rgba(7, 10, 17, 0.4) 80%, transparent 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: padding 0.4s ease;
+}
+.nav.shrunk { padding: 12px 36px; background: rgba(7, 10, 17, 0.95); }
+.nav-brand {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  display: flex; align-items: baseline; gap: 10px;
+}
+.nav-brand span {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 3px 8px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 2px;
+}
+.nav-links {
+  display: flex; gap: 28px; align-items: center;
+}
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a::after {
+  content: '';
+  position: absolute; left: 0; bottom: 0;
+  height: 1px; width: 0;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--ink-void);
+}
+
+.nav-burger { display: none; }
+
+@media (max-width: 900px) {
+  .nav { padding: 14px 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-burger {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 8px;
+  }
+  .nav-burger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--paper);
+  }
+}
+
+/* =================================================================
+   LAYOUT PRIMITIVES
+   ================================================================= */
+.content { position: relative; z-index: 1; }
+.section {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.section-narrow { max-width: 960px; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.eyebrow::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--gold);
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin-bottom: 24px;
+  max-width: 900px;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 500;
+}
+.section-lede {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--paper-muted);
+  max-width: 680px;
+  margin-bottom: 56px;
+}
+
+@media (max-width: 640px) {
+  .section { padding: 80px 20px; }
+  .section-lede { margin-bottom: 40px; }
+}
+
+/* =================================================================
+   HERO
+   ================================================================= */
+.hero {
+  min-height: 100vh;
+  padding: 140px 36px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  display: flex; align-items: center;
+  z-index: 2;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--ink-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-hairline) 1px, transparent 1px);
+  background-size: var(--grid-pitch) var(--grid-pitch);
+  mask-image: radial-gradient(ellipse at 40% 50%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 40% 50%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; width: 100%; }
+.hero-meta {
+  display: flex; gap: 32px; align-items: baseline;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+.hero-meta strong { color: var(--gold); font-weight: 500; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 8vw, 112px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+  margin-bottom: 40px;
+  max-width: 15ch;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+}
+.hero-title em::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0.06em;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+  opacity: 0.4;
+}
+
+.hero-subtitle {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--paper-muted);
+  max-width: 620px;
+  margin-bottom: 48px;
+}
+.hero-subtitle strong { color: var(--paper); font-weight: 500; }
+
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary, .btn-secondary {
+  padding: 16px 32px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.3s;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 500;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--ink-void);
+}
+.btn-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px var(--gold-glow);
+}
+.btn-secondary {
+  border: 1px solid var(--ink-line);
+  color: var(--paper);
+  background: rgba(255,255,255,0.02);
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-aside {
+  position: absolute;
+  right: 0; top: 180px;
+  width: 260px;
+  padding: 24px;
+  border-left: 1px solid var(--ink-line);
+  background: linear-gradient(180deg, rgba(22, 29, 44, 0.4), transparent);
+}
+.hero-aside-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.hero-aside-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--paper-muted);
+}
+.hero-aside-sig {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink-line);
+}
+
+@media (max-width: 1024px) { .hero-aside { display: none; } }
+
+.hero-flag {
+  position: absolute;
+  right: 40px; bottom: 80px;
+  width: 80px; height: 40px;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* =================================================================
+   MINISTER ALIGNMENT CALLOUT
+   ================================================================= */
+.minister {
+  padding: 100px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.minister-card {
+  border: 1px solid var(--gold-deep);
+  background: linear-gradient(135deg, rgba(30, 58, 111, 0.12), rgba(201, 169, 97, 0.05));
+  padding: 56px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.minister-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright), var(--gold-deep));
+}
+.minister-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.minister-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 56px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+.minister-seal {
+  width: 140px; height: 140px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  position: relative;
+  flex-shrink: 0;
+}
+.minister-seal::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px dashed var(--gold-deep);
+  border-radius: 50%;
+}
+.minister-seal-kbs {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 36px;
+  color: var(--gold-bright);
+  letter-spacing: -0.02em;
+}
+.minister-seal-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin-top: 4px;
+}
+.minister-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.minister-headline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--paper);
+  margin-bottom: 22px;
+}
+.minister-headline em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 500;
+}
+.minister-body {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--paper-muted);
+  margin-bottom: 28px;
+  max-width: 68ch;
+}
+.minister-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink-line);
+}
+.minister-fact-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+  margin-bottom: 6px;
+}
+.minister-fact-value {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--paper);
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  .minister-card { padding: 36px 24px; }
+  .minister-grid { grid-template-columns: 1fr; gap: 28px; }
+  .minister-seal { width: 100px; height: 100px; }
+  .minister-seal-kbs { font-size: 26px; }
+}
+
+/* =================================================================
+   STATS STRIP
+   ================================================================= */
+.stats {
+  padding: 40px 36px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+}
+.stat {
+  padding: 36px 24px;
+  border-right: 1px solid var(--ink-line);
+  transition: background 0.3s;
+  position: relative;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(201, 169, 97, 0.04); }
+.stat-value {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin-bottom: 10px;
+}
+.stat-value em { font-style: italic; color: var(--gold-bright); font-weight: 500; }
+.stat-unit {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--paper-muted);
+  margin-top: 12px;
+  line-height: 1.4;
+}
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat { border-right: 1px solid var(--ink-line); border-bottom: 1px solid var(--ink-line); }
+  .stat:nth-child(2n) { border-right: none; }
+  .stat:last-child { grid-column: 1 / -1; border-bottom: none; }
+}
+
+/* =================================================================
+   STAKEHOLDERS · FOUR SEATS AT THE TABLE
+   ================================================================= */
+.stakeholders {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.stake-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.stake-card {
+  padding: 28px 24px 32px;
+  background: linear-gradient(180deg, var(--ink-rise) 0%, var(--ink-deep) 100%);
+  border: 1px solid var(--ink-line);
+  border-top: 3px solid var(--stake-color, var(--gold));
+  position: relative;
+  transition: transform 0.4s, border-color 0.4s;
+}
+.stake-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--stake-color, var(--gold));
+}
+.stake-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(180deg, var(--stake-glow, rgba(201,169,97,0.08)) 0%, transparent 100%);
+  pointer-events: none;
+}
+.stake-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--stake-color, var(--gold));
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: 12px;
+  position: relative;
+}
+.stake-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stake-color, var(--gold));
+  margin-bottom: 12px;
+  position: relative;
+}
+.stake-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--paper);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  position: relative;
+}
+.stake-title em { font-style: italic; color: var(--stake-color, var(--gold-bright)); }
+.stake-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--paper-muted);
+  margin-bottom: 18px;
+  position: relative;
+}
+.stake-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  border-top: 1px solid var(--ink-line);
+  padding-top: 16px;
+}
+.stake-list li {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--paper-muted);
+  padding: 6px 0 6px 16px;
+  position: relative;
+}
+.stake-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 14px;
+  width: 8px; height: 1px;
+  background: var(--stake-color, var(--gold));
+}
+.stake-ask {
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-left: 2px solid var(--stake-color, var(--gold));
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--paper-dim);
+  line-height: 1.5;
+}
+.stake-ask strong { color: var(--stake-color, var(--gold)); font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .stake-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .stake-grid { grid-template-columns: 1fr; }
+}
+
+/* =================================================================
+   3D MAP SECTION
+   ================================================================= */
+.map-section {
+  padding: 80px 36px 120px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+.map-shell {
+  position: relative;
+  background: linear-gradient(180deg, #060812 0%, #0d1320 100%);
+  border: 1px solid var(--ink-line);
+  height: 680px;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+#three-canvas-container {
+  position: absolute;
+  inset: 0;
+}
+#three-canvas-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+#three-canvas-container canvas:active { cursor: grabbing; }
+
+/* UI OVERLAYS ON MAP */
+.map-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+.map-overlay-panel {
+  background: rgba(7, 10, 17, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius);
+  padding: 20px;
+  pointer-events: auto;
+}
+
+/* Compass — top-left */
+.compass {
+  top: 24px; left: 24px;
+  width: 84px;
+}
+.compass-face {
+  width: 76px; height: 76px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 50%;
+  position: relative;
+  background: rgba(7, 10, 17, 0.7);
+  backdrop-filter: blur(10px);
+  margin: 0 auto;
+}
+.compass-face::before {
+  content: '';
+  position: absolute; inset: 6px;
+  border: 1px dashed rgba(201, 169, 97, 0.25);
+  border-radius: 50%;
+}
+.compass-n {
+  position: absolute;
+  top: 4px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--red);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.compass-needle {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 2px; height: 28px;
+  transform: translate(-50%, -100%);
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, var(--red) 0%, var(--red) 50%, var(--paper-muted) 50%, var(--paper-muted) 100%);
+  transition: transform 0.15s linear;
+}
+.compass-coords {
+  text-align: center;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: var(--paper-faint);
+  line-height: 1.4;
+}
+
+/* Legend — top-right */
+.legend {
+  top: 24px; right: 24px;
+  width: 220px;
+}
+.legend-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ink-line);
+}
+.legend-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 6px;
+  font-size: 12px;
+  color: var(--paper-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+.legend-row:hover { background: rgba(201, 169, 97, 0.08); color: var(--paper); }
+.legend-row.active { background: rgba(201, 169, 97, 0.12); color: var(--gold-bright); }
+.legend-swatch {
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.legend-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--paper-faint);
+}
+
+/* Selected-zone panel — bottom-left */
+.zone-info {
+  bottom: 24px; left: 24px;
+  width: 320px;
+  padding: 22px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+.zone-info::-webkit-scrollbar { width: 4px; }
+.zone-info::-webkit-scrollbar-track { background: transparent; }
+.zone-info::-webkit-scrollbar-thumb { background: var(--ink-line); border-radius: 2px; }
+.zone-info-activities {
+  margin: 12px 0 14px;
+}
+.zi-act-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.zi-act-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.zi-act-list li {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--paper-muted);
+  padding-left: 14px;
+  position: relative;
+}
+.zi-act-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 6px; height: 1px;
+  background: var(--gold);
+}
+.zone-info-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.zone-info-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--paper);
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.zone-info-name em { font-style: italic; color: var(--gold-bright); }
+.zone-info-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--paper-muted);
+  margin-bottom: 14px;
+}
+.zone-info-meta {
+  display: flex; gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ink-line);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+.zone-info-meta strong { color: var(--gold); font-weight: 600; }
+
+/* Camera preset buttons — bottom center */
+.map-presets {
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 8px;
+  padding: 8px;
+  background: rgba(7, 10, 17, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--ink-line);
+  border-radius: 3px;
+  pointer-events: auto;
+}
+.preset-btn {
+  padding: 9px 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  border-radius: 2px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.preset-btn:hover { background: rgba(201, 169, 97, 0.1); color: var(--paper); }
+.preset-btn.active { background: var(--gold); color: var(--ink-void); font-weight: 600; }
+
+/* Toggles — bottom right */
+.toggles {
+  bottom: 24px; right: 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  pointer-events: auto;
+}
+.toggle {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: rgba(7, 10, 17, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--ink-line);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  transition: all 0.25s;
+  border-radius: 2px;
+}
+.toggle:hover { color: var(--paper); border-color: var(--gold-deep); }
+.toggle-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ink-line);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.toggle.active .toggle-dot {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+.toggle.active { color: var(--gold); }
+
+/* Tooltip */
+.map-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(7, 10, 17, 0.95);
+  border: 1px solid var(--gold-deep);
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--paper);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 5;
+  white-space: nowrap;
+}
+.map-tooltip.visible { opacity: 1; }
+
+.map-instruction {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 3;
+}
+.map-instruction.visible { opacity: 1; }
+.map-instruction svg { margin: 0 auto 10px; }
+
+/* Map title bar (above shell) */
+.map-meta {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ink-line);
+  flex-wrap: wrap; gap: 16px;
+}
+.map-meta-left { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--paper-dim); }
+.map-meta-left strong { color: var(--gold); }
+.map-meta-right { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--paper-faint); }
+
+@media (max-width: 900px) {
+  .map-shell { height: 520px; }
+  .compass, .legend, .zone-info, .toggles { display: none; }
+  .map-presets { bottom: 12px; padding: 6px; gap: 4px; }
+  .preset-btn { padding: 7px 10px; font-size: 9px; }
+}
+
+/* =================================================================
+   ZONES GRID
+   ================================================================= */
+.zones {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.zones-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.zone-card {
+  padding: 32px;
+  background: linear-gradient(180deg, var(--ink-rise) 0%, var(--ink-deep) 100%);
+  border: 1px solid var(--ink-line);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s, border-color 0.4s;
+}
+.zone-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-deep);
+}
+.zone-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 3px; height: 0;
+  background: var(--zone-color, var(--gold));
+  transition: height 0.5s ease;
+}
+.zone-card:hover::before { height: 100%; }
+.zone-card-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--zone-color, var(--gold));
+  line-height: 1;
+  opacity: 0.35;
+  margin-bottom: 16px;
+}
+.zone-card-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--paper);
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.zone-card-name em { font-style: italic; color: var(--gold-bright); }
+.zone-card-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--paper-muted);
+  margin-bottom: 18px;
+}
+.zone-card-meta {
+  display: flex; gap: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink-line);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+.zone-card-meta strong { color: var(--zone-color, var(--gold)); font-weight: 600; }
+
+@media (max-width: 900px) { .zones-grid { grid-template-columns: 1fr; } }
+
+/* =================================================================
+   PROGRAMME TIMELINE
+   ================================================================= */
+.programme {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.programme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 56px;
+}
+.edition {
+  padding: 36px;
+  background: linear-gradient(180deg, var(--ink-rise) 0%, var(--ink-deep) 100%);
+  border: 1px solid var(--ink-line);
+  position: relative;
+}
+.edition-merdeka { border-top: 3px solid var(--red); }
+.edition-malaysia { border-top: 3px solid var(--blue); }
+.edition-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.edition-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--paper);
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+.edition-title em { font-style: italic; color: var(--gold-bright); }
+.edition-dates {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--paper-muted);
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ink-line);
+}
+.edition-days { display: flex; flex-direction: column; gap: 18px; }
+.edition-day {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  padding: 4px 0;
+}
+.edition-day-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 500;
+}
+.edition-day-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 4px;
+}
+.edition-day-body {
+  font-size: 13px;
+  color: var(--paper-muted);
+  line-height: 1.5;
+}
+.edition-finale {
+  margin-top: 28px;
+  padding: 14px 18px;
+  background: rgba(201, 169, 97, 0.06);
+  border-left: 2px solid var(--gold);
+  font-size: 13px;
+  color: var(--paper-muted);
+  font-style: italic;
+}
+.edition-finale strong { color: var(--gold-bright); font-style: normal; }
+
+@media (max-width: 900px) { .programme-grid { grid-template-columns: 1fr; } }
+
+/* Single-edition programme layout */
+.single-edition-card {
+  margin-top: 56px;
+  background: linear-gradient(180deg, var(--ink-rise) 0%, var(--ink-deep) 100%);
+  border: 1px solid var(--ink-line);
+  border-top: 3px solid var(--red);
+  overflow: hidden;
+}
+.se-header {
+  padding: 36px 32px 28px;
+  border-bottom: 1px solid var(--ink-line);
+  background: linear-gradient(90deg, rgba(204,14,42,0.06), transparent);
+}
+.se-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 500;
+  color: var(--paper);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.se-title em { font-style: italic; color: var(--gold-bright); }
+.se-dates {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--paper-muted);
+  text-transform: uppercase;
+}
+.se-days {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.se-day {
+  padding: 28px 24px;
+  border-right: 1px solid var(--ink-line);
+}
+.se-day:last-child { border-right: none; }
+.se-day-finale {
+  background: linear-gradient(180deg, rgba(201,169,97,0.04), transparent);
+}
+.se-day-header {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--ink-line);
+}
+.se-day-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.se-day-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--paper);
+  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.se-day-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--paper-faint);
+  line-height: 1.4;
+}
+.se-slots {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.se-slot {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--paper-muted);
+  align-items: baseline;
+}
+.se-time {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.se-act strong { color: var(--paper); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .se-days { grid-template-columns: 1fr; }
+  .se-day { border-right: none; border-bottom: 1px solid var(--ink-line); }
+  .se-day:last-child { border-bottom: none; }
+}
+
+/* =================================================================
+   VENDOR MIX
+   ================================================================= */
+.vendors {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.vendors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-top: 48px;
+}
+.vendors-donut { width: 100%; max-width: 420px; margin: 0 auto; }
+.vendors-breakdown h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.vendors-ethnic { margin-top: 40px; }
+.ethnic-bar {
+  margin-bottom: 18px;
+}
+.ethnic-bar-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
+}
+.ethnic-bar-label {
+  font-size: 13px;
+  color: var(--paper);
+  font-weight: 500;
+}
+.ethnic-bar-value {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--paper-muted);
+}
+.ethnic-bar-track {
+  height: 6px;
+  background: var(--ink-line);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.ethnic-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ethnic-color) 0%, rgba(201, 169, 97, 0.5) 100%);
+  width: 0;
+  transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ethnic-bar-fill.animate { width: var(--target-width); }
+
+@media (max-width: 900px) {
+  .vendors-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* =================================================================
+   SPONSORS PYRAMID
+   ================================================================= */
+.sponsors {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.pyramid {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-top: 48px;
+  align-items: center;
+}
+.tier {
+  width: 100%;
+  padding: 28px 32px;
+  background: linear-gradient(90deg, rgba(7,10,17,0.4), var(--ink-rise), rgba(7,10,17,0.4));
+  border: 1px solid var(--ink-line);
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.tier-title { max-width: 920px; }
+.tier-gold { max-width: 1080px; }
+.tier-silver { max-width: 1180px; }
+.tier-bronze { max-width: 1280px; }
+.tier:hover { border-color: var(--gold-deep); background: linear-gradient(90deg, rgba(7,10,17,0.4), rgba(201,169,97,0.05), rgba(7,10,17,0.4)); }
+.tier-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tier-color, var(--gold));
+  font-weight: 600;
+}
+.tier-price {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--paper-muted);
+  margin-top: 4px;
+}
+.tier-brands {
+  font-size: 13px;
+  color: var(--paper-muted);
+  line-height: 1.6;
+}
+.tier-brands strong { color: var(--paper); font-weight: 600; }
+.tier-count {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  color: var(--tier-color, var(--gold));
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .tier { grid-template-columns: 1fr; gap: 14px; padding: 20px; }
+  .tier-count { display: none; }
+}
+
+/* =================================================================
+   BUDGET
+   ================================================================= */
+.budget {
+  padding: 120px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.budget-top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 56px;
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(30, 58, 111, 0.12), rgba(201, 169, 97, 0.06));
+  border: 1px solid var(--ink-line);
+  border-top: 2px solid var(--gold);
+}
+.budget-total-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.budget-total-value {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--paper);
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.budget-total-value em { font-style: italic; color: var(--gold-bright); font-weight: 500; }
+.budget-total-sub {
+  font-size: 14px;
+  color: var(--paper-muted);
+  line-height: 1.6;
+}
+.budget-split {
+  display: grid;
+  gap: 12px;
+}
+.budget-split-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ink-line);
+  font-size: 13px;
+  color: var(--paper-muted);
+}
+.budget-split-row:last-child { border-bottom: none; }
+.budget-split-row strong { color: var(--paper); font-weight: 600; }
+.budget-split-row .amt {
+  font-family: var(--mono);
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.budget-bars {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.budget-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 80px;
+  gap: 20px;
+  align-items: center;
+}
+.budget-row-label {
+  font-size: 13px;
+  color: var(--paper-muted);
+  font-weight: 500;
+}
+.budget-row-track {
+  height: 8px;
+  background: var(--ink-line);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.budget-row-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
+  width: 0;
+  transition: width 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.budget-row-fill.animate { width: var(--target-width); }
+.budget-row-value {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .budget-top { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+  .budget-row { grid-template-columns: 140px 1fr 60px; gap: 12px; }
+  .budget-row-label { font-size: 12px; }
+}
+
+
+/* =================================================================
+   CTA / FOOTER
+   ================================================================= */
+.cta {
+  padding: 140px 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.cta-ornament {
+  width: 40px; height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+}
+.cta-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin-bottom: 28px;
+  max-width: 18ch;
+  margin-left: auto; margin-right: auto;
+}
+.cta-title em { font-style: italic; color: var(--gold-bright); font-weight: 500; }
+.cta-body {
+  font-size: 16px;
+  color: var(--paper-muted);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.cta-buttons { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+.footer {
+  padding: 60px 36px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--ink-line);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.footer-brand {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--paper);
+}
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+.footer-meta a { color: var(--gold); }
+
+/* =================================================================
+   SCROLL REVEAL
+   ================================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal-stagger.visible > * { opacity: 1; transform: none; }
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.33s; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- LOADER                                                       -->
+<!-- ============================================================ -->
+<div class="loader" id="loader">
+  <div class="loader-crest">
+    <div class="loader-mark">K</div>
+  </div>
+  <div class="loader-bar"></div>
+  <div class="loader-text">Menyediakan kanvas · Preparing canvas</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- NAVIGATION                                                   -->
+<!-- ============================================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">Karnival Sungai Petani <span>2026</span></div>
+  <div class="nav-links">
+    <a href="#minister">MADANI</a>
+    <a href="#map">3D Site</a>
+    <a href="#programme">Programme</a>
+    <a href="#sponsors">Partners</a>
+    <a href="#budget">Budget</a>
+    <a href="#cta">Next Steps</a>
+  </div>
+  <a href="#cta" class="nav-cta">Next Steps</a>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="content">
+
+<!-- ============================================================ -->
+<!-- HERO                                                         -->
+<!-- ============================================================ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content reveal-stagger">
+    <div class="hero-meta">
+      <span><strong>Draft 05</strong> · Apr 2026</span>
+      <span>For: <strong>KBS</strong> · <strong>YB ADUN Bakar Arang</strong> · <strong>Usahawan Belia</strong> · <strong>Rakan Korporat</strong></span>
+      <span>29 — 31 August 2026 · Merdeka Weekend</span>
+    </div>
+    <h1 class="hero-title">Kemerdekaan <em>Ekonomi</em> Belia · Sungai Petani 2026</h1>
+    <p class="hero-subtitle">
+      A 3-day flagship youth entrepreneurship &amp; sports carnival at <strong>C-Mart Premium @ Amanjaya Mall</strong> across the Merdeka weekend. Built on <strong>Malaysia MADANI</strong> and fully sponsored by <strong>Kementerian Belia &amp; Sukan</strong>. Focused on what Sungai Petani actually has: <em>creator-economy micro-entrepreneurs</em> equipped with TikTok / Instagram / Shopee activation, halal-heritage F&amp;B, and a sports-scouting pipeline into state and national teams.
+    </p>
+    <div class="hero-ctas">
+      <a href="#map" class="btn-primary">Walk the 3D Site →</a>
+      <a href="#cta" class="btn-secondary">Download Kertas Cadangan</a>
+    </div>
+  </div>
+
+  <aside class="hero-aside">
+    <div class="hero-aside-label">Strategic Note</div>
+    <p class="hero-aside-text">"The flagship isn't the 29 August ribbon-cutting. It is the platform that remains standing on 1 January 2027."</p>
+    <div class="hero-aside-sig">— Executive Summary, §Conclusion</div>
+  </aside>
+
+  <svg class="hero-flag" viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="stripes" width="80" height="40" patternUnits="userSpaceOnUse">
+        <rect width="80" height="40" fill="#f4ecdc"/>
+        <rect y="2.86" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="8.57" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="14.29" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="20" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="25.71" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="31.43" width="80" height="2.86" fill="#cc0e2a"/>
+        <rect y="37.14" width="80" height="2.86" fill="#cc0e2a"/>
+      </pattern>
+    </defs>
+    <rect width="80" height="40" fill="url(#stripes)"/>
+    <rect width="40" height="22.86" fill="#1e3a6f"/>
+    <circle cx="15" cy="11.43" r="5" fill="#ffcc00"/>
+    <circle cx="17" cy="11.43" r="4" fill="#1e3a6f"/>
+    <polygon points="22,11.43 23.5,12.8 25.3,12.8 24,14 24.5,15.8 22,14.6 19.5,15.8 20,14 18.7,12.8 20.5,12.8" fill="#ffcc00"/>
+  </svg>
+</section>
+
+<!-- ============================================================ -->
+<!-- MINISTER ALIGNMENT — THE KEY INSIGHT                         -->
+<!-- ============================================================ -->
+<section class="minister reveal" id="minister">
+  <div class="minister-card">
+    <div class="minister-grid">
+      <div class="minister-seal">
+        <div class="minister-seal-kbs">M</div>
+        <div class="minister-seal-label">Malaysia MADANI</div>
+      </div>
+      <div>
+        <div class="minister-eyebrow">Strategic Alignment · Malaysia MADANI</div>
+        <h2 class="minister-headline">Every zone embodies a pillar of <em>MADANI</em>.</h2>
+        <p class="minister-body">
+          This carnival is not a generic sponsorship ask. It is a <strong>MADANI Belia flagship</strong> — an on-the-ground expression of the six MADANI pillars within a single constituency. Every zone, every activation, every KPI maps to Malaysia MADANI outcomes the ADUN can defend publicly and the KBS can fund as policy delivery, not discretionary spend. The alignment is structural, not cosmetic.
+        </p>
+        <div class="minister-facts">
+          <div>
+            <div class="minister-fact-label">Kemampanan</div>
+            <div class="minister-fact-value">Sustainability<br/>400 youth income streams · RM-certified vendors · e-Invoice ready</div>
+          </div>
+          <div>
+            <div class="minister-fact-label">Kesejahteraan</div>
+            <div class="minister-fact-value">Prosperity<br/>RM1.5–4M direct GMV · jobs for 400 belia</div>
+          </div>
+          <div>
+            <div class="minister-fact-label">Daya Cipta</div>
+            <div class="minister-fact-value">Innovation<br/>Creator economy · Mentorship Match · Local2Local app</div>
+          </div>
+          <div>
+            <div class="minister-fact-label">Hormat</div>
+            <div class="minister-fact-value">Respect<br/>Multi-racial vendor mix · inclusive programming</div>
+          </div>
+          <div>
+            <div class="minister-fact-label">Keyakinan</div>
+            <div class="minister-fact-value">Trust<br/>KBS-backed · government-endorsed · transparent</div>
+          </div>
+          <div>
+            <div class="minister-fact-label">Ihsan</div>
+            <div class="minister-fact-value">Compassion<br/>First-time-vendor fee subsidy · accessible entry</div>
+          </div>
+        </div>
+        <div style="margin-top:28px; padding-top:20px; border-top:1px solid var(--ink-line); font-size:13px; line-height:1.6; color:var(--paper-faint); font-style:italic; font-family:var(--serif);">
+          Supporting note: YB Dr. Mohammed Taufiq Johari — MP for P.015 Sungai Petani — was appointed <em>Menteri Belia dan Sukan</em> on 17 Dec 2025. The carnival sits inside the Minister's own parliamentary seat, reinforcing the policy-delivery framing.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- STATS STRIP                                                  -->
+<!-- ============================================================ -->
+<section class="stats">
+  <div class="stats-grid reveal-stagger">
+    <div class="stat">
+      <div class="stat-value"><em>400</em></div>
+      <div class="stat-unit">Youth Vendors</div>
+      <div class="stat-label">F&amp;B · Handcraft · Cultural · Tech · Sports</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">RM <em>1.57</em><span style="font-size:0.5em">M</span></div>
+      <div class="stat-unit">Event Envelope</div>
+      <div class="stat-label">Fully KBS-sponsored · MADANI Belia flagship · no ADUN funds</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value"><em>75</em>K</div>
+      <div class="stat-unit">Projected Footfall</div>
+      <div class="stat-label">3 days · ~RM1.5–4M direct youth vendor GMV</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value"><em>7</em></div>
+      <div class="stat-unit">Sports + Scouting</div>
+      <div class="stat-label">Talent pipeline to state/national teams · MSN · BAM · FAM · MESF</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value"><em>6</em></div>
+      <div class="stat-unit">MADANI Pillars</div>
+      <div class="stat-label">Each zone maps to a pillar · policy delivery, not spend</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOUR SEATS AT THE TABLE · Stakeholder Architecture          -->
+<!-- ============================================================ -->
+<section class="stakeholders reveal">
+  <div class="eyebrow">§ 03 · Stakeholder architecture</div>
+  <h2 class="section-title">Four seats at the table. <em>Every seat wins visibly.</em></h2>
+  <p class="section-lede">This is not a one-way funding request. Each of four audiences — KBS, YB ADUN, youth vendors, and proposed corporate partners — receives a defined, measurable outcome. The carnival is designed to only work if all four come to the table knowing exactly what they're getting.</p>
+
+  <div class="stake-grid reveal-stagger">
+
+    <!-- Seat 01 · KBS -->
+    <div class="stake-card" style="--stake-color:#c9a961; --stake-glow:rgba(201,169,97,0.1)">
+      <div class="stake-num">01</div>
+      <div class="stake-label">KBS · Kementerian Belia &amp; Sukan</div>
+      <div class="stake-title">Policy <em>delivery</em>, not spend.</div>
+      <div class="stake-body">A MADANI Belia flagship grounded in the Minister's own parliamentary seat (P.015 Sungai Petani) — measurable, replicable, reportable.</div>
+      <ul class="stake-list">
+        <li>400 youth income streams · direct attribution to KBS</li>
+        <li>6 MADANI pillars each mapped to a delivered zone</li>
+        <li><strong>Sports Scouting Pipeline</strong> · 50+ youth into state/national trials</li>
+        <li>Post-event KPI dashboard: jobs · GMV · skills · footfall · trials</li>
+        <li>Replicable template for future MADANI Belia carnivals</li>
+      </ul>
+      <div class="stake-ask"><strong>KBS Ask:</strong> RM1.57M allocation (including RM200K vendor subsidy) + programme endorsement + MSN/BAM/FAM scout coordination.</div>
+    </div>
+
+    <!-- Seat 02 · ADUN -->
+    <div class="stake-card" style="--stake-color:#cc0e2a; --stake-glow:rgba(204,14,42,0.1)">
+      <div class="stake-num">02</div>
+      <div class="stake-label">YB ADUN Bakar Arang</div>
+      <div class="stake-title">A constituency win <em>visible to all</em>.</div>
+      <div class="stake-body">Zero ADUN budget required. High-profile event anchored in N.28 Bakar Arang — the most ethnically diverse DUN in Sungai Petani — with multi-racial vendor mix designed for the full constituency.</div>
+      <ul class="stake-list">
+        <li>400 local youth directly visible as beneficiaries</li>
+        <li>Multi-racial, multi-faith programming across 8 zones</li>
+        <li>75,000 projected constituent footfall · Merdeka weekend</li>
+        <li>Photo-ops with Santan, ZUS, Lee Zii Jia (subject to confirmation)</li>
+        <li>Federal–state alignment (ADUN endorses, KBS delivers)</li>
+      </ul>
+      <div class="stake-ask"><strong>ADUN Ask:</strong> Letter of endorsement to accompany the KBS submission — no funds required.</div>
+    </div>
+
+    <!-- Seat 03 · Vendors -->
+    <div class="stake-card" style="--stake-color:#6b9b4a; --stake-glow:rgba(107,155,74,0.1)">
+      <div class="stake-num">03</div>
+      <div class="stake-label">Usahawan Belia · 400 Youth Vendors</div>
+      <div class="stake-title">First-time barrier <em>removed</em>.</div>
+      <div class="stake-body">KBS subsidises the booth fee. Every vendor gets professional infrastructure, anchor-brand mentoring, and a real economic platform — typically out of reach for youth-stage operators.</div>
+      <ul class="stake-list">
+        <li>Subsidised booth: RM300 (vs RM1.8K unsubsidised market rate)</li>
+        <li>Professional tents · power · water · waste · security included</li>
+        <li>Free e-Invoice ready POS onboarding via Vigor Digital</li>
+        <li>Local2Local Connect app · loyalty + queueless pay and pickup</li>
+        <li>Access to 75K footfall · projected RM3,500–10K vendor takings</li>
+        <li>Usahawan Belia Awards (5 categories) &amp; Mentorship Match with founders</li>
+      </ul>
+      <div class="stake-ask"><strong>Vendor Ask:</strong> Apply via Bakar Arang community channels · RM300 symbolic fee · Sijil JAKIM where applicable.</div>
+    </div>
+
+    <!-- Seat 04 · Partners -->
+    <div class="stake-card" style="--stake-color:#3d7eb5; --stake-glow:rgba(61,126,181,0.1)">
+      <div class="stake-num">04</div>
+      <div class="stake-label">Rakan Korporat · Proposed Partners</div>
+      <div class="stake-title">Activation, <em>not just a logo</em>.</div>
+      <div class="stake-body">Outreach begins only after KBS green-light. Partners access a government-endorsed MADANI flagship with 75K consumers and 400 youth founders — with stage programming, not banner placement.</div>
+      <ul class="stake-list">
+        <li>Founder speaking slot on MainStage (Gold tier and above)</li>
+        <li>Branded zone activation (kitchen · barista school · clinic)</li>
+        <li>Access to 400 youth vendors for recruiting / partnership</li>
+        <li>MADANI CSR narrative · post-event media rights package</li>
+        <li>Usahawan Belia Awards category naming (Silver tier)</li>
+        <li>Digital amplification to 75K attendees + social audiences</li>
+      </ul>
+      <div class="stake-ask"><strong>Partner Ask:</strong> None yet. We approach post-KBS · RM20K–800K tiers · never core-delivery dependent.</div>
+    </div>
+
+  </div>
+</section>
+<!-- ============================================================ -->
+<section class="map-section reveal" id="map">
+  <div class="map-meta">
+    <div class="map-meta-left">§ 04 · <strong>Interactive Site Plan</strong> · C-Mart Premium @ Amanjaya Mall</div>
+    <div class="map-meta-right">5.67365° N · 100.50982° E · ~15,000 sqm footprint · 2,100 parking bays</div>
+  </div>
+  <div class="eyebrow" style="margin-bottom: 18px;">Walk the site · Click zones for detail</div>
+  <h2 class="section-title" style="margin-bottom: 36px;">The <em>canvas</em>, rendered in three dimensions.</h2>
+
+  <div class="map-shell">
+    <div id="three-canvas-container"></div>
+
+    <!-- Compass -->
+    <div class="map-overlay compass map-overlay-panel" style="padding:12px;">
+      <div class="compass-face">
+        <div class="compass-n">N</div>
+        <div class="compass-needle" id="compass-needle"></div>
+      </div>
+      <div class="compass-coords">5.6736° N<br/>100.5098° E</div>
+    </div>
+
+    <!-- Legend -->
+    <div class="map-overlay legend map-overlay-panel">
+      <div class="legend-title">Zone Legend</div>
+      <div class="legend-row" data-zone="stage"><span class="legend-swatch" style="background:#e6c77a"></span>MainStage <span class="legend-count">Centre</span></div>
+      <div class="legend-row" data-zone="fnb_halal"><span class="legend-swatch" style="background:#6b9b4a"></span>F&amp;B · <strong style="color:#6b9b4a;margin-left:4px">Halal</strong> <span class="legend-count">130</span></div>
+      <div class="legend-row" data-zone="fnb_non_halal"><span class="legend-swatch" style="background:#d94830"></span>F&amp;B · Non-Halal <span class="legend-count">30</span></div>
+      <div class="legend-row" data-zone="handcraft"><span class="legend-swatch" style="background:#b07a3d"></span>Handcraft <span class="legend-count">80</span></div>
+      <div class="legend-row" data-zone="cultural"><span class="legend-swatch" style="background:#c76ba4"></span>Cultural <span class="legend-count">70</span></div>
+      <div class="legend-row" data-zone="tech"><span class="legend-swatch" style="background:#3d7eb5"></span>Youth Tech <span class="legend-count">60</span></div>
+      <div class="legend-row" data-zone="sports"><span class="legend-swatch" style="background:#c9a961"></span>Sports <span class="legend-count">7 zones</span></div>
+      <div class="legend-row" data-zone="ops"><span class="legend-swatch" style="background:#7e6a92"></span>Ops &amp; Surau <span class="legend-count">5</span></div>
+    </div>
+
+    <!-- Selected zone info -->
+    <div class="map-overlay zone-info map-overlay-panel" id="zone-info">
+      <div class="zone-info-label" id="zi-label">Overview</div>
+      <div class="zone-info-name" id="zi-name">Sungai Petani <em>Flagship</em></div>
+      <div class="zone-info-body" id="zi-body">400 vendors · centred MainStage · Halal &amp; Non-Halal F&amp;B segregated · 7 sports zones · 15,000 sqm plaza.</div>
+      <div class="zone-info-activities" id="zi-activities">
+        <div class="zi-act-label">Click any zone for sample activities</div>
+      </div>
+      <div class="zone-info-meta">
+        <span id="zi-m1">Booths <strong>400</strong></span>
+        <span id="zi-m2">Area <strong>15K sqm</strong></span>
+      </div>
+    </div>
+
+    <!-- Camera presets -->
+    <div class="map-overlay map-presets">
+      <button class="preset-btn active" data-preset="overview">Overview</button>
+      <button class="preset-btn" data-preset="stage">MainStage</button>
+      <button class="preset-btn" data-preset="sports">Sports</button>
+      <button class="preset-btn" data-preset="street">Vendor Street</button>
+      <button class="preset-btn" data-preset="ground">Ground Level</button>
+    </div>
+
+    <!-- Toggles -->
+    <div class="map-overlay toggles">
+      <button class="toggle active" data-toggle="rotate"><span class="toggle-dot"></span>Auto Orbit</button>
+      <button class="toggle active" data-toggle="crowd"><span class="toggle-dot"></span>Crowd Flow</button>
+      <button class="toggle active" data-toggle="dusk"><span class="toggle-dot"></span>Dusk Light</button>
+    </div>
+
+    <div class="map-tooltip" id="map-tooltip">Zone</div>
+
+    <div class="map-instruction visible" id="map-instruction">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+      Loading scene · Drag to orbit · Scroll to zoom
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ZONES GRID                                                   -->
+<!-- ============================================================ -->
+<section class="zones reveal">
+  <div class="eyebrow">§ 05 · Zone architecture</div>
+  <h2 class="section-title">Eight zones, each one a <em>MADANI</em> pillar made tangible.</h2>
+  <p class="section-lede">Recalibrated for the Sungai Petani market reality: booth mix weighted toward F&amp;B (heritage heavy) and handcraft (strong rural artisan supply), with a lean 30-booth <em>Digital &amp; Creator</em> zone for creator-economy entrepreneurs — not formal startups. Sports zones double as <strong>talent scouting stations</strong> feeding MSN and state team pipelines.</p>
+
+  <div class="zones-grid reveal-stagger">
+    <div class="zone-card" style="--zone-color:#6b9b4a">
+      <div class="zone-card-num">01<span style="font-size:0.5em; letter-spacing:0.05em">·A</span></div>
+      <div class="zone-card-name">F&amp;B · <em>Halal</em> Section</div>
+      <div class="zone-card-body">150 JAKIM-certified booths spanning heritage Laksa Kedah row, nasi kandar station, Malay-Mamak kopitiam pop-ups, and halal dessert startups. Activities: <strong>Santan pop-up kitchen</strong> with live nasi lemak demo, <strong>ZUS Barista School</strong> with RM10 trial certificate, <strong>Chef Wan Laksa Kedah judging</strong> Day 2, <strong>Tealive youth barista showdown</strong>, <strong>Usahawan Belia Awards</strong> (5 category prize pool), and a <strong>Mentorship Match</strong> for selected youth F&amp;B founders.</div>
+      <div class="zone-card-meta"><span>Booths <strong>150</strong></span><span>MADANI · <strong>Kesejahteraan</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#d94830">
+      <div class="zone-card-num">01<span style="font-size:0.5em; letter-spacing:0.05em">·B</span></div>
+      <div class="zone-card-name">F&amp;B · <em>Non-Halal</em> Section</div>
+      <div class="zone-card-body">30 booths with own entrance, own payment counter, dedicated waste stream. Activities: <strong>Hainanese Chicken Rice heritage table</strong>, <strong>Penang-style char kway teow live wok</strong>, <strong>Indian non-halal banana leaf</strong> dining row, <strong>Chinese dim sum morning service</strong>, and an artisan coffee + craft brew row. Standard dual-section festival management.</div>
+      <div class="zone-card-meta"><span>Booths <strong>30</strong></span><span>MADANI · <strong>Hormat</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#b07a3d">
+      <div class="zone-card-num">02</div>
+      <div class="zone-card-name">Handcraft &amp; <em>Heritage</em></div>
+      <div class="zone-card-body">90 booths — curated through Kraftangan Malaysia Kedah &amp; Usahanita. Strong fit for the Kedah rural artisan ecosystem. Activities: <strong>live songket weaving loom</strong>, <strong>labu sayong pottery throwing wheel</strong>, <strong>Batik Tulis hands-on workshop</strong> (RM15 / 30min), <strong>wau bulan kite-making zone</strong> for children, and the <strong>Usahanita Women Entrepreneurs Mini-Market</strong> with 25 women-led stalls. Bilingual storytelling panels at every maker.</div>
+      <div class="zone-card-meta"><span>Booths <strong>90</strong></span><span>MADANI · <strong>Kemampanan</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#c76ba4">
+      <div class="zone-card-num">03</div>
+      <div class="zone-card-name">Cultural &amp; <em>Lifestyle</em></div>
+      <div class="zone-card-body">70 booths with a dedicated small stage running rotating acts. Activities: <strong>Zapin Kedah opening</strong> (daily 11 AM), <strong>24 Festive Drums</strong> 二十四节令鼓 performance Day 2, <strong>Bharatanatyam showcase</strong>, <strong>Kaamatan/Gawai Borneo cultural night</strong>, <strong>multi-cultural fashion runway</strong> (baju Kedah · cheongsam · saree · Sabah-Sarawak), and community story-sharing circles.</div>
+      <div class="zone-card-meta"><span>Booths <strong>70</strong></span><span>MADANI · <strong>Hormat</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#3d7eb5">
+      <div class="zone-card-num">04</div>
+      <div class="zone-card-name">Youth <em>Digital</em> &amp; Creator</div>
+      <div class="zone-card-body">Recalibrated for the Sungai Petani market — <strong>30 booths</strong> focused on the creator economy and equipping micro-enterprises with platforms that keep earning after the carnival ends. Activities: <strong>TikTok Shop Setup Bootcamp</strong> (30-min free setup for vendors), <strong>IG Reels Masterclass</strong> for micro sellers (Meta Malaysia), <strong>Live Selling Masterclass</strong> on TikTok Live + FB Live, <strong>Shopee &amp; Lazada seller onboarding</strong>, <strong>Content Creation Studio</strong> (free product photoshoots), <strong>Usahawan Belia Awards</strong> Content Challenge (RM10K pool), <strong>Mentorship Match</strong> with Santan/ZUS/Tealive founders, and an <strong>AI-for-SME clinic</strong>.</div>
+      <div class="zone-card-meta"><span>Booths <strong>30</strong></span><span>MADANI · <strong>Daya Cipta</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#c9a961">
+      <div class="zone-card-num">05</div>
+      <div class="zone-card-name">Sports + <em>Scouting Pipeline</em></div>
+      <div class="zone-card-body">Every sports zone doubles as a <strong>talent ID station</strong>. MSN, BAM, FAM, MPA, PERSES, PESAKA, MESF and Kedah state associations send accredited scouts. Selected youth get formal invitations to <strong>state/national team trials</strong>. Activities: <strong>Lee Zii Jia badminton clinic</strong> (100 youth · BAM scouts present), <strong>3×3 basketball open</strong> (MBPP scouts), <strong>Pickleball open</strong> (MPA U21 scouting), <strong>Futsal exhibition</strong> (FAM + Kedah DA scouts), <strong>Sepak Takraw &amp; Silat</strong> (PERSES + PESAKA talent ID), <strong>Urban Skate/BMX</strong> (Olympic-recognised pathway), <strong>E-Sports Dome</strong> (MESF national team trials).</div>
+      <div class="zone-card-meta"><span>Zones <strong>7</strong></span><span>MADANI · <strong>Kesejahteraan</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#e6c77a">
+      <div class="zone-card-num">06</div>
+      <div class="zone-card-name">MainStage · <em>Centred</em></div>
+      <div class="zone-card-body">Positioned dead-centre for unobstructed sightlines from every vendor zone. Activities: daily <strong>Doa &amp; Negaraku</strong>, <strong>ADUN opening address</strong>, <strong>MADANI Youth Q&amp;A</strong> with 100 selected youth, rotating <strong>Leadership Forums</strong> (Santan · ZUS · Tealive founders), <strong>Tier-A Headliner concerts</strong> Day 3, <strong>150-drone Jalur Gemilang show</strong>, and a <strong>Cultural Parade Finale</strong> feeding all zones into the stage.</div>
+      <div class="zone-card-meta"><span>Capacity <strong>5,000</strong></span><span>MADANI · <strong>Keyakinan</strong></span></div>
+    </div>
+    <div class="zone-card" style="--zone-color:#7e6a92">
+      <div class="zone-card-num">07</div>
+      <div class="zone-card-name">Ops, Surau &amp; <em>Medical</em></div>
+      <div class="zone-card-body">Full operational backbone: <strong>Incident Command Centre</strong> with 16-screen CCTV wall, <strong>MRC + SJAM ambulance standby</strong> (10-min response), <strong>on-site surau</strong> (men/women separate) with full ablution, <strong>KKM "Jom Sihat Malaysia" screening tent</strong> (free BP / BMI / diabetes checks), <strong>lost &amp; found</strong>, multilingual info desk, and dedicated logistics compound.</div>
+      <div class="zone-card-meta"><span>Pavilions <strong>5</strong></span><span>MADANI · <strong>Ihsan</strong></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PROGRAMME TIMELINE — SINGLE EDITION · MERDEKA WEEKEND        -->
+<!-- ============================================================ -->
+<section class="programme reveal" id="programme">
+  <div class="eyebrow">§ 06 · 3-day programme</div>
+  <h2 class="section-title">Kemerdekaan <em>Ekonomi</em> Belia.<br/>29 — 31 August 2026.</h2>
+  <p class="section-lede">A deliberately focused single edition over the Merdeka long weekend. Opening ceremony Saturday · Laksa Kedah heritage and Usahawan Awards heats Sunday · Merdeka-Eve climax Monday with the patriotic headliner slot and 150-drone Jalur Gemilang show. Every hour is programmed; below is the shape of the flow.</p>
+
+  <div class="single-edition-card">
+    <div class="se-header">
+      <div class="se-title">Kemerdekaan <em>Ekonomi</em> Belia</div>
+      <div class="se-dates">Sat 29 · Sun 30 · Mon 31 August 2026 · Merdeka Eve</div>
+    </div>
+
+    <div class="se-days">
+
+      <!-- DAY 1 -->
+      <div class="se-day">
+        <div class="se-day-header">
+          <div class="se-day-num">Day 01</div>
+          <div class="se-day-title">Opening &amp; Ministerial Launch</div>
+          <div class="se-day-sub">Saturday 29 August · Doa · Negaraku · 35m Jalur Gemilang raise</div>
+        </div>
+        <div class="se-slots">
+          <div class="se-slot"><span class="se-time">10:00</span><span class="se-act">Opening ceremony · Doa · Negaraku · VIP ribbon-cut on velvet gold</span></div>
+          <div class="se-slot"><span class="se-time">11:00</span><span class="se-act">Zapin Kedah opening performance · zones open to public</span></div>
+          <div class="se-slot"><span class="se-time">11:30</span><span class="se-act">Santan pop-up kitchen · live nasi lemak demo</span></div>
+          <div class="se-slot"><span class="se-time">12:30</span><span class="se-act"><strong>TikTok Shop Setup Bootcamp</strong> · round 1 (30 min, free)</span></div>
+          <div class="se-slot"><span class="se-time">14:00</span><span class="se-act">Leadership Forum: Catherine Goh (Santan) · Venon Tian (ZUS)</span></div>
+          <div class="se-slot"><span class="se-time">15:00</span><span class="se-act">Pickleball demo match · MPA certified coach</span></div>
+          <div class="se-slot"><span class="se-time">16:00</span><span class="se-act">3×3 Basketball bracket opens · 64-team draw</span></div>
+          <div class="se-slot"><span class="se-time">17:30</span><span class="se-act">Maghrib · stage PA-mute protocol · sunset turnaround</span></div>
+          <div class="se-slot"><span class="se-time">19:00</span><span class="se-act">Evening cultural showcase · multi-ethnic rotation</span></div>
+          <div class="se-slot"><span class="se-time">20:00</span><span class="se-act">E-sports semi-finals · livestreamed to TikTok + FB</span></div>
+          <div class="se-slot"><span class="se-time">21:00</span><span class="se-act">Day 1 curtain · logistics reset</span></div>
+        </div>
+      </div>
+
+      <!-- DAY 2 -->
+      <div class="se-day">
+        <div class="se-day-header">
+          <div class="se-day-num">Day 02</div>
+          <div class="se-day-title">Laksa Heritage &amp; Usahawan Awards Heats</div>
+          <div class="se-day-sub">Sunday 30 August · Heritage food · creator economy · Content Challenge</div>
+        </div>
+        <div class="se-slots">
+          <div class="se-slot"><span class="se-time">10:00</span><span class="se-act">Day opens · Content Creation Studio (free product photoshoots)</span></div>
+          <div class="se-slot"><span class="se-time">11:00</span><span class="se-act">Chef Wan Laksa Kedah Heritage judging · 35-booth row</span></div>
+          <div class="se-slot"><span class="se-time">11:30</span><span class="se-act">Usahawan Belia Awards · 5 category heats begin</span></div>
+          <div class="se-slot"><span class="se-time">12:30</span><span class="se-act"><strong>IG Reels Masterclass</strong> for micro sellers · Meta Malaysia</span></div>
+          <div class="se-slot"><span class="se-time">13:00</span><span class="se-act">Mentorship Match · 1-on-1s with Santan · ZUS · Tealive founders</span></div>
+          <div class="se-slot"><span class="se-time">14:00</span><span class="se-act"><strong>Live Selling Masterclass</strong> · TikTok Live + FB Live track</span></div>
+          <div class="se-slot"><span class="se-time">15:00</span><span class="se-act">24 Festive Drums performance · community showcase</span></div>
+          <div class="se-slot"><span class="se-time">16:00</span><span class="se-act">Bharatanatyam classical Indian dance showcase</span></div>
+          <div class="se-slot"><span class="se-time">17:00</span><span class="se-act">Pickleball open tournament (brackets)</span></div>
+          <div class="se-slot"><span class="se-time">17:30</span><span class="se-act">Maghrib · stage PA-mute protocol</span></div>
+          <div class="se-slot"><span class="se-time">19:30</span><span class="se-act"><strong>Tier-A headliner concert</strong> · Hael Husaini × Khalifah</span></div>
+          <div class="se-slot"><span class="se-time">21:00</span><span class="se-act">Day 2 curtain · headliner outro</span></div>
+        </div>
+      </div>
+
+      <!-- DAY 3 -->
+      <div class="se-day se-day-finale">
+        <div class="se-day-header">
+          <div class="se-day-num">Day 03</div>
+          <div class="se-day-title">Merdeka-Eve Climax</div>
+          <div class="se-day-sub">Monday 31 August · Sports Scouting · Awards winners · patriotic drone show</div>
+        </div>
+        <div class="se-slots">
+          <div class="se-slot"><span class="se-time">10:00</span><span class="se-act">Sports Scouting registration opens · MSN · BAM · FAM tables</span></div>
+          <div class="se-slot"><span class="se-time">11:00</span><span class="se-act">Sports trials across 7 zones · scouts observe</span></div>
+          <div class="se-slot"><span class="se-time">12:00</span><span class="se-act"><strong>Usahawan Belia Awards</strong> · 5 category winners announced</span></div>
+          <div class="se-slot"><span class="se-time">13:00</span><span class="se-act">Sports Scouting Results · state/national trial invitations</span></div>
+          <div class="se-slot"><span class="se-time">14:00</span><span class="se-act"><strong>Lee Zii Jia badminton clinic</strong> · 100 youth (BAM-cleared)</span></div>
+          <div class="se-slot"><span class="se-time">15:00</span><span class="se-act">3×3 Basketball finals · championship bracket</span></div>
+          <div class="se-slot"><span class="se-time">16:00</span><span class="se-act"><strong>Harimau Malaya × Kedah Darul Aman futsal</strong> exhibition</span></div>
+          <div class="se-slot"><span class="se-time">17:30</span><span class="se-act">Maghrib · stage PA-mute protocol</span></div>
+          <div class="se-slot"><span class="se-time">19:00</span><span class="se-act">Cultural Parade Finale · all zones feed into MainStage</span></div>
+          <div class="se-slot"><span class="se-time">20:00</span><span class="se-act"><strong>Patriotic headliner</strong> · Faizal Tahir set</span></div>
+          <div class="se-slot"><span class="se-time">20:30</span><span class="se-act">"Keranamu Malaysia" anthem · full crowd sing-along</span></div>
+          <div class="se-slot"><span class="se-time">20:45</span><span class="se-act"><strong>150-drone Jalur Gemilang show</strong> · 10 min choreographed</span></div>
+          <div class="se-slot"><span class="se-time">20:55</span><span class="se-act">10-min cold-fountain finale (no pyro — PAS-state compliant)</span></div>
+          <div class="se-slot"><span class="se-time">21:00</span><span class="se-act">Merdeka-Eve climax close · countdown to Merdeka Day</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="edition-finale" style="margin: 28px 32px;"><strong>Marquee talent (subject to confirmation):</strong> Faizal Tahir (Merdeka-Eve headliner) · Hael Husaini × Khalifah (Day 2 Kedah-origin opener) · Lee Zii Jia (badminton clinic) · 150-drone show · no pyro.</div>
+  </div>
+</section>
+</section>
+
+<!-- ============================================================ -->
+<!-- VENDOR MIX                                                   -->
+<!-- ============================================================ -->
+<section class="vendors reveal">
+  <div class="eyebrow">§ 07 · Vendor architecture</div>
+  <h2 class="section-title">400 booths, <em>calibrated</em> for multi-racial inclusion.</h2>
+  <p class="section-lede">Target ratios overweight Chinese and Indian vendor presence versus the Bakar Arang DUN demographic, making inclusion a <em>designed</em> feature rather than an afterthought. Every recruitment channel below is identified and Kedah-resident.</p>
+
+  <div class="vendors-grid">
+    <svg class="vendors-donut" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background ring -->
+      <circle cx="150" cy="150" r="110" fill="none" stroke="#232c3e" stroke-width="40"/>
+      <!-- Recalibrated for SP market: 150 Halal (37.5%), 30 Non-Halal (7.5%), 90 Handcraft (22.5%), 70 Cultural (17.5%), 30 Digital (7.5%), 30 Sports (7.5%) -->
+      <!-- circumference = 2*pi*110 = 691.15 -->
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#6b9b4a" stroke-width="40" stroke-dasharray="259.18 691.15" stroke-dashoffset="0" transform="rotate(-90 150 150)"/>
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#d94830" stroke-width="40" stroke-dasharray="51.84 691.15" stroke-dashoffset="-259.18" transform="rotate(-90 150 150)"/>
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#b07a3d" stroke-width="40" stroke-dasharray="155.51 691.15" stroke-dashoffset="-311.02" transform="rotate(-90 150 150)"/>
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#c76ba4" stroke-width="40" stroke-dasharray="120.95 691.15" stroke-dashoffset="-466.53" transform="rotate(-90 150 150)"/>
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#3d7eb5" stroke-width="40" stroke-dasharray="51.84 691.15" stroke-dashoffset="-587.48" transform="rotate(-90 150 150)"/>
+      <circle class="donut-seg" cx="150" cy="150" r="110" fill="none" stroke="#c9a961" stroke-width="40" stroke-dasharray="51.84 691.15" stroke-dashoffset="-639.32" transform="rotate(-90 150 150)"/>
+
+      <text x="150" y="142" text-anchor="middle" font-family="Fraunces" font-size="48" font-style="italic" font-weight="500" fill="#f4ecdc">400</text>
+      <text x="150" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="2" fill="#c9a961">YOUTH VENDORS</text>
+
+      <!-- Labels with leader lines -->
+      <g font-family="JetBrains Mono" font-size="9" fill="#d8cfbe">
+        <line x1="250" y1="85" x2="278" y2="68" stroke="#6b9b4a" stroke-width="1"/>
+        <text x="283" y="66" fill="#6b9b4a">Halal · 150</text>
+
+        <line x1="275" y1="150" x2="296" y2="150" stroke="#d94830" stroke-width="1"/>
+        <text x="301" y="153" fill="#d94830">Non-Halal · 30</text>
+
+        <line x1="245" y1="220" x2="275" y2="240" stroke="#b07a3d" stroke-width="1"/>
+        <text x="280" y="243" fill="#b07a3d">Craft · 90</text>
+
+        <line x1="120" y1="270" x2="100" y2="290" stroke="#c76ba4" stroke-width="1"/>
+        <text x="95" y="295" text-anchor="end" fill="#c76ba4">Cultural · 70</text>
+
+        <line x1="42" y1="180" x2="12" y2="195" stroke="#3d7eb5" stroke-width="1"/>
+        <text x="8" y="198" text-anchor="end" fill="#3d7eb5">Digital · 30</text>
+
+        <line x1="55" y1="95" x2="28" y2="70" stroke="#c9a961" stroke-width="1"/>
+        <text x="22" y="68" text-anchor="end" fill="#c9a961">Sports · 30</text>
+      </g>
+    </svg>
+
+    <div class="vendors-breakdown">
+      <h4>Ethnic Composition Target</h4>
+      <div class="vendors-ethnic">
+        <div class="ethnic-bar">
+          <div class="ethnic-bar-top"><div class="ethnic-bar-label">Malay / Bumiputera</div><div class="ethnic-bar-value">208 · 52.0%</div></div>
+          <div class="ethnic-bar-track"><div class="ethnic-bar-fill" style="--ethnic-color:#cc0e2a; --target-width:52%"></div></div>
+        </div>
+        <div class="ethnic-bar">
+          <div class="ethnic-bar-top"><div class="ethnic-bar-label">Chinese</div><div class="ethnic-bar-value">110 · 27.5%</div></div>
+          <div class="ethnic-bar-track"><div class="ethnic-bar-fill" style="--ethnic-color:#e6c77a; --target-width:27.5%"></div></div>
+        </div>
+        <div class="ethnic-bar">
+          <div class="ethnic-bar-top"><div class="ethnic-bar-label">Indian</div><div class="ethnic-bar-value">65 · 16.3%</div></div>
+          <div class="ethnic-bar-track"><div class="ethnic-bar-fill" style="--ethnic-color:#6b9b4a; --target-width:16.3%"></div></div>
+        </div>
+        <div class="ethnic-bar">
+          <div class="ethnic-bar-top"><div class="ethnic-bar-label">Sabah · Sarawak · Orang Asli</div><div class="ethnic-bar-value">17 · 4.3%</div></div>
+          <div class="ethnic-bar-track"><div class="ethnic-bar-fill" style="--ethnic-color:#3d7eb5; --target-width:4.3%"></div></div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:var(--paper-faint); margin-top:24px; line-height:1.6; font-family:var(--serif); font-style:italic;">
+        Overweights vs Bakar Arang DUN baseline (Malay 47.6 / Chinese 37.0 / Indian 14.7 / Others 0.8) to make inclusion visible &amp; intentional.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SPONSORS PYRAMID — PROPOSED / NOT YET APPROACHED             -->
+<!-- ============================================================ -->
+<section class="sponsors reveal" id="sponsors">
+  <div class="eyebrow">§ 08 · Proposed partnership architecture</div>
+  <h2 class="section-title">Suggested partners. <em>None yet approached.</em></h2>
+
+  <div style="padding: 20px 24px; margin: 24px 0 36px; border: 1px dashed var(--gold); background: rgba(201, 169, 97, 0.05); border-radius: var(--radius); display: flex; align-items: flex-start; gap: 16px;">
+    <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; color: var(--gold); padding: 4px 10px; border: 1px solid var(--gold); border-radius: 2px; white-space: nowrap; flex-shrink: 0; margin-top: 4px;">NOTICE</div>
+    <div style="font-size: 13.5px; line-height: 1.65; color: var(--paper-muted);">
+      The brand names below are <strong>strategic suggestions</strong> — they have <strong>not been contacted</strong>. Base event delivery is fully funded by KBS (see §09 Budget) and does not depend on any of these partners. Sponsorship outreach will begin <strong>only after KBS green-lights the event</strong>. Any funds secured are additional upside for marketing amplification, brand activation, and vendor prize pools — never used to cover core delivery.
+    </div>
+  </div>
+
+  <p class="section-lede" style="margin-bottom: 36px;">The tiered architecture below is how we would package the event for corporate outreach after KBS confirmation. Priority is driven by founder availability for stage programming, not just logo spend. Every tier is an <em>add-on</em>, not a dependency.</p>
+
+  <div class="pyramid">
+    <div class="tier tier-title" style="--tier-color:#e6c77a">
+      <div>
+        <div class="tier-label">Proposed Title · Merdeka Edition</div>
+        <div class="tier-price">RM 300K — 600K · 1 slot</div>
+      </div>
+      <div class="tier-brands"><strong>PETRONAS (suggested)</strong> · natural Merdeka anchor given heritage advertising &amp; SEA Games 2017 platinum precedent. To be approached post-KBS.</div>
+      <div class="tier-count">01</div>
+    </div>
+    <div class="tier tier-gold" style="--tier-color:#c9a961">
+      <div>
+        <div class="tier-label">Proposed Gold · Activation</div>
+        <div class="tier-price">RM 120K — 250K · 3 slots</div>
+      </div>
+      <div class="tier-brands"><strong>TikTok Malaysia (suggested)</strong> — dedicated Creator Studio zone + TikTok Shop bootcamps for 400 vendors · <strong>Santan (suggested)</strong> pop-up kitchen · <strong>ZUS Coffee (suggested)</strong> Barista School. Each runs their own branded activation zone, not just a logo.</div>
+      <div class="tier-count">03</div>
+    </div>
+    <div class="tier tier-silver" style="--tier-color:#a8a8b3">
+      <div>
+        <div class="tier-label">Proposed Silver · Micro-Enterprise Enablers</div>
+        <div class="tier-price">RM 50K — 100K · 6 slots</div>
+      </div>
+      <div class="tier-brands"><strong>Meta Malaysia</strong> (IG Reels + Business ads clinic) · <strong>Shopee Malaysia</strong> (seller onboarding booth) · <strong>Lazada</strong> (LazMall micro-seller track) · <strong>Secret Recipe</strong> · <strong>Mr DIY</strong> · <strong>Habib Jewels</strong> (Usahawan Belia Awards naming). All suggested — no approach yet.</div>
+      <div class="tier-count">06</div>
+    </div>
+    <div class="tier tier-bronze" style="--tier-color:#c88e5a">
+      <div>
+        <div class="tier-label">Proposed Bronze &amp; Institutional</div>
+        <div class="tier-price">RM 15K — 40K · 10+ slots</div>
+      </div>
+      <div class="tier-brands">Tealive · Marrybrown · Maxis/Yoodo or CelcomDigi (e-sports) · Maybank MAE (QR rail) · MATRADE Mark of Malaysian Brand · SME Corp Kedah · TEKUN · PUNB · Kraftangan · KICCI · KCCCI · MARA · JCI Kedah. All suggested.</div>
+      <div class="tier-count">10+</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 36px; padding: 22px 26px; border: 1px solid var(--blue); border-left: 3px solid var(--blue); background: rgba(30, 58, 111, 0.08); border-radius: var(--radius);">
+    <div style="font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--blue); margin-bottom: 10px;">MICRO-ENTERPRISE ENABLEMENT · SILVER TIER FOCUS</div>
+    <p style="font-size: 13.5px; line-height: 1.65; color: var(--paper-muted); margin: 0;">
+      The Silver tier is deliberately designed around <strong>platforms that make micro-entrepreneurs more money after the carnival ends.</strong> TikTok Shop bootcamps teach vendors to livestream sell. Meta runs Reels masterclasses. Shopee and Lazada onboard vendors as sellers on-site. A youth running a laksa stall on Day 1 should walk out on Day 3 with a TikTok Shop set up, a Shopee account verified, and a Content Creation Studio profile in hand — that's the carnival's lasting economic gift to Bakar Arang.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- BUDGET                                                       -->
+<!-- ============================================================ -->
+<section class="budget reveal" id="budget">
+  <div class="eyebrow">§ 09 · Budget · KBS-Funded</div>
+  <h2 class="section-title">RM1.57M. <em>Single edition</em>, fully KBS-sponsored, vendor-subsidised.</h2>
+  <p class="section-lede">Focused single-edition budget for the 3-day Merdeka event. KBS funds 100% of core delivery — including a direct RM200K subsidy covering vendor fees for first-time youth entrepreneurs who have never operated at a mass-market carnival. App &amp; tech scaled down to single-event MVP; marketing bumped to fund a dedicated <strong>TikTok/IG creator content campaign</strong> amplifying micro-enterprise vendors.</p>
+
+  <div class="budget-top">
+    <div>
+      <div class="budget-total-label">Total Event Envelope · KBS Funded</div>
+      <div class="budget-total-value">RM <em>1.57</em><span style="font-size:0.5em">M</span></div>
+      <div class="budget-total-sub">29 — 31 August 2026 · Single Merdeka edition. Funding source: <strong>KBS Malaysia MADANI programme lines</strong> — combining Dana Rakan Muda, Geran Padanan Sukan, Skim Mikro MADANI Belia. Proposed corporate partners (§08) are pure upside — outreach begins only after KBS green-light.</div>
+    </div>
+    <div class="budget-split">
+      <div class="budget-split-row"><strong>KBS Core Event Allocation</strong><span class="amt">RM 1,250K</span></div>
+      <div class="budget-split-row"><strong>KBS Vendor Subsidy · First-Time</strong><span class="amt">RM 200K</span></div>
+      <div class="budget-split-row"><strong>Vendor Partial Fees</strong><span class="amt">RM 120K</span></div>
+      <div class="budget-split-row" style="border-bottom: 1px dashed var(--gold-deep); color: var(--paper-faint); font-style: italic;"><strong style="font-style: normal; color: var(--paper-faint);">Proposed Sponsors (upside only)</strong><span class="amt" style="color: var(--paper-faint);">post-KBS</span></div>
+    </div>
+  </div>
+
+  <div class="budget-bars">
+    <div class="budget-row">
+      <div class="budget-row-label">Site Setup (stage · LED · PA · booths · gensets)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:100%"></div></div>
+      <div class="budget-row-value">440K · 28.0%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Talent &amp; Programming (headliner · cultural · clinics)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:54.5%"></div></div>
+      <div class="budget-row-value">240K · 15.3%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Marketing &amp; Creator Content Campaign (TikTok · IG · OOH)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:47.7%"></div></div>
+      <div class="budget-row-value">210K · 13.4%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">App &amp; Tech (Local2Local Connect · single-edition MVP)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:34.1%"></div></div>
+      <div class="budget-row-value">150K · 9.6%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Contingency (9%)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:31.8%"></div></div>
+      <div class="budget-row-value">140K · 8.9%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Project Management &amp; Agency</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:18.2%"></div></div>
+      <div class="budget-row-value">80K · 5.1%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Security &amp; Crowd Management</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:15.9%"></div></div>
+      <div class="budget-row-value">70K · 4.5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Vendor Coordination · Sijil Halal Verification</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:13.6%"></div></div>
+      <div class="budget-row-value">60K · 3.8%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Permits · Legal · Insurance · Royalties</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:11.4%"></div></div>
+      <div class="budget-row-value">50K · 3.2%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Sanitation &amp; Waste Management</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:11.4%"></div></div>
+      <div class="budget-row-value">50K · 3.2%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Logistics &amp; Transport</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:9.1%"></div></div>
+      <div class="budget-row-value">40K · 2.5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-row-label">Medical &amp; Safety (MRC/SJAM · KKM screening)</div>
+      <div class="budget-row-track"><div class="budget-row-fill" style="--target-width:9.1%"></div></div>
+      <div class="budget-row-value">40K · 2.5%</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- CTA                                                          -->
+<!-- ============================================================ -->
+<section class="cta reveal" id="cta">
+  <div class="cta-ornament"></div>
+  <div class="eyebrow">Next Steps · Tindakan Seterusnya</div>
+  <h2 class="cta-title">Four audiences. <em>One Merdeka weekend.</em></h2>
+  <p class="cta-body">
+    Every stakeholder has a specific, low-friction action for <strong>Kemerdekaan Ekonomi Belia · 29–31 August 2026</strong>. The critical path runs through KBS green-light; everything else proceeds in parallel once that is secured. Target KBS confirmation: <strong>early June 2026</strong> to hit the Merdeka window.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 1080px; margin: 0 auto 40px; text-align: left;">
+
+    <div style="padding: 18px 20px; background: rgba(201,169,97,0.06); border: 1px solid var(--gold-deep); border-radius: var(--radius);">
+      <div style="font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px;">01 · KBS</div>
+      <div style="font-family: var(--serif); font-size: 15px; color: var(--paper); line-height: 1.35; margin-bottom: 10px;">Review the full Kertas Cadangan</div>
+      <div style="font-size: 11.5px; color: var(--paper-faint); line-height: 1.5;">Receive the bilingual 25–40pg BM-primary submission · allocate from MADANI Belia programme lines.</div>
+    </div>
+
+    <div style="padding: 18px 20px; background: rgba(204,14,42,0.06); border: 1px solid rgba(204,14,42,0.4); border-radius: var(--radius);">
+      <div style="font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--red); margin-bottom: 8px;">02 · ADUN</div>
+      <div style="font-family: var(--serif); font-size: 15px; color: var(--paper); line-height: 1.35; margin-bottom: 10px;">Issue letter of endorsement</div>
+      <div style="font-size: 11.5px; color: var(--paper-faint); line-height: 1.5;">A one-page endorsement letter for YB ADUN's signature accompanies the KBS submission. No funds required.</div>
+    </div>
+
+    <div style="padding: 18px 20px; background: rgba(107,155,74,0.06); border: 1px solid rgba(107,155,74,0.4); border-radius: var(--radius);">
+      <div style="font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: #6b9b4a; margin-bottom: 8px;">03 · USAHAWAN</div>
+      <div style="font-family: var(--serif); font-size: 15px; color: var(--paper); line-height: 1.35; margin-bottom: 10px;">Pre-register interest (Q2 rollout)</div>
+      <div style="font-size: 11.5px; color: var(--paper-faint); line-height: 1.5;">Vendor expression of interest opens post-KBS · RM300 symbolic fee · JAKIM cert required for F&amp;B Halal.</div>
+    </div>
+
+    <div style="padding: 18px 20px; background: rgba(61,126,181,0.06); border: 1px solid rgba(61,126,181,0.4); border-radius: var(--radius);">
+      <div style="font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: #3d7eb5; margin-bottom: 8px;">04 · RAKAN</div>
+      <div style="font-family: var(--serif); font-size: 15px; color: var(--paper); line-height: 1.35; margin-bottom: 10px;">Stand by for outreach</div>
+      <div style="font-size: 11.5px; color: var(--paper-faint); line-height: 1.5;">Partner outreach begins <em>only after</em> KBS green-light. Proposed brands have not yet been contacted.</div>
+    </div>
+
+  </div>
+
+  <div class="cta-buttons">
+    <a href="mailto:victorlee@vigordigital.org?subject=Karnival Sungai Petani 2026 — Kertas Cadangan Request" class="btn-primary">Request Full Kertas Cadangan →</a>
+    <a href="#map" class="btn-secondary">Walk the 3D Site Again</a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                       -->
+<!-- ============================================================ -->
+<footer class="footer">
+  <div>
+    <div class="footer-brand">Vigor Digital <em>Solution</em> Sdn Bhd</div>
+    <div class="footer-meta" style="margin-top:6px; text-transform:none; letter-spacing:0.05em; font-size:11px;">Bayan Lepas, Penang · Smart Factory · ESG Digital · Bespoke Software</div>
+  </div>
+  <div class="footer-meta">
+    Draft 02 · Apr 2026 · <a href="mailto:victorlee@vigordigital.org">victorlee@vigordigital.org</a>
+  </div>
+</footer>
+
+</div> <!-- /.content -->
+
+<!-- ============================================================ -->
+<!-- THREE.JS r128                                                -->
+<!-- ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+/* ==================================================================
+   SCROLL REVEAL + NAV
+   ================================================================== */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Animate budget bars & ethnic bars as they scroll into view
+      entry.target.querySelectorAll('.budget-row-fill, .ethnic-bar-fill').forEach(el => {
+        setTimeout(() => el.classList.add('animate'), 100);
+      });
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+
+// Nav shrink on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('shrunk', window.scrollY > 60);
+}, { passive: true });
+
+// Dismiss loader after a short hold (lets fonts + scene bootstrap)
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 900);
+});
+
+/* ==================================================================
+   3D SITE PLAN — STATECRAFT MODERN
+   ================================================================== */
+(function init3D() {
+  const container = document.getElementById('three-canvas-container');
+  if (!container || typeof THREE === 'undefined') return;
+
+  // --- PALETTE (match CSS tokens) ---
+  const C = {
+    bgTop: 0x0d1220,
+    bgBottom: 0x060812,
+    ground: 0x141a26,
+    groundLine: 0x2a3244,
+    mall: 0x1a2234,
+    mallWindow: 0xe6c77a,
+    stage: 0x2a2a36,
+    stageTruss: 0x1a1a20,
+    ledOn: 0xffcc66,
+    fnb: 0xd94830,
+    handcraft: 0xb07a3d,
+    cultural: 0x6b9b4a,
+    tech: 0x3d7eb5,
+    sports: 0xc9a961,
+    ops: 0x7e6a92,
+    gold: 0xc9a961,
+    goldBright: 0xe6c77a,
+    red: 0xcc0e2a,
+    blue: 0x1e3a6f,
+    paper: 0xf4ecdc,
+    tree: 0x3d5438,
+    trunk: 0x2d2519,
+    flag: 0xf4ecdc,
+    crowd: 0xd8cfbe
+  };
+
+  // --- SCENE ---
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(C.bgBottom);
+  scene.fog = new THREE.Fog(C.bgBottom, 140, 360);
+
+  // --- CAMERA ---
+  const w = container.clientWidth;
+  const h = container.clientHeight;
+  const camera = new THREE.PerspectiveCamera(42, w / h, 0.5, 800);
+  camera.position.set(90, 95, 130);
+
+  // --- RENDERER ---
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w, h);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.95;
+  container.appendChild(renderer.domElement);
+
+  // --- LIGHTING (dusk statecraft) ---
+  const ambient = new THREE.AmbientLight(0xb8c5d9, 0.32);
+  scene.add(ambient);
+
+  const sun = new THREE.DirectionalLight(0xffd4a6, 0.9);
+  sun.position.set(70, 90, 30);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -130;
+  sun.shadow.camera.right = 130;
+  sun.shadow.camera.top = 130;
+  sun.shadow.camera.bottom = -130;
+  sun.shadow.camera.near = 1;
+  sun.shadow.camera.far = 300;
+  sun.shadow.bias = -0.0008;
+  scene.add(sun);
+
+  // Warm rim from stage direction (stage now at centre)
+  const stageLight = new THREE.PointLight(0xffa966, 2.8, 90, 1.6);
+  stageLight.position.set(0, 20, 25);
+  scene.add(stageLight);
+
+  // Subtle blue fill (opposite side)
+  const fill = new THREE.DirectionalLight(0x6080b0, 0.25);
+  fill.position.set(-60, 40, -80);
+  scene.add(fill);
+
+  // Ground emissive hemispheric
+  const hemi = new THREE.HemisphereLight(0xffe0b0, 0x1a1a2a, 0.28);
+  scene.add(hemi);
+
+  // --- GROUND ---
+  const groundGeo = new THREE.PlaneGeometry(400, 400, 1, 1);
+  const groundMat = new THREE.MeshStandardMaterial({
+    color: C.ground,
+    roughness: 0.95,
+    metalness: 0.05
+  });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // Ground grid lines (subtle)
+  const gridHelper = new THREE.GridHelper(220, 22, C.groundLine, C.groundLine);
+  gridHelper.material.opacity = 0.25;
+  gridHelper.material.transparent = true;
+  gridHelper.position.y = 0.02;
+  scene.add(gridHelper);
+
+  // Carnival perimeter — gold chain of LED markers along a rectangular boundary
+  const perimeter = new THREE.Group();
+  const walkwayPts = [
+    [-85, -50], [85, -50], [85, 70], [-85, 70], [-85, -50]
+  ];
+  for (let i = 0; i < walkwayPts.length - 1; i++) {
+    const [x1, z1] = walkwayPts[i];
+    const [x2, z2] = walkwayPts[i + 1];
+    const dx = x2 - x1, dz = z2 - z1;
+    const len = Math.hypot(dx, dz);
+    const steps = Math.floor(len / 3.5);
+    for (let j = 0; j <= steps; j++) {
+      const t = j / steps;
+      const x = x1 + dx * t;
+      const z = z1 + dz * t;
+      const mark = new THREE.Mesh(
+        new THREE.SphereGeometry(0.35, 6, 6),
+        new THREE.MeshStandardMaterial({
+          color: C.gold, emissive: C.gold, emissiveIntensity: 1.6
+        })
+      );
+      mark.position.set(x, 0.4, z);
+      mark.userData.isMarker = true;
+      perimeter.add(mark);
+    }
+  }
+  scene.add(perimeter);
+
+  // --- C-MART PREMIUM @ AMANJAYA MALL BUILDING ---
+  const mallGroup = new THREE.Group();
+
+  const mallBody = new THREE.Mesh(
+    new THREE.BoxGeometry(140, 32, 30),
+    new THREE.MeshStandardMaterial({ color: C.mall, roughness: 0.75, metalness: 0.12 })
+  );
+  mallBody.position.set(0, 16, -75);
+  mallBody.castShadow = true;
+  mallBody.receiveShadow = true;
+  mallGroup.add(mallBody);
+
+  // Upper trim
+  const mallTrim = new THREE.Mesh(
+    new THREE.BoxGeometry(142, 1.4, 32),
+    new THREE.MeshStandardMaterial({ color: 0x0f1420, roughness: 0.6 })
+  );
+  mallTrim.position.set(0, 32.5, -75);
+  mallGroup.add(mallTrim);
+
+  // Horizontal glowing window strip bands (3 floors)
+  for (let f = 0; f < 3; f++) {
+    const band = new THREE.Mesh(
+      new THREE.BoxGeometry(135, 2.2, 0.4),
+      new THREE.MeshStandardMaterial({
+        color: C.mallWindow,
+        emissive: C.mallWindow,
+        emissiveIntensity: 0.55,
+        roughness: 0.4
+      })
+    );
+    band.position.set(0, 6 + f * 9, -59.8);
+    mallGroup.add(band);
+  }
+
+  // Entrance cube (C-Mart Premium entry portico)
+  const portico = new THREE.Mesh(
+    new THREE.BoxGeometry(22, 8, 7),
+    new THREE.MeshStandardMaterial({ color: 0x202a3d, roughness: 0.55 })
+  );
+  portico.position.set(0, 4, -56.5);
+  portico.castShadow = true;
+  mallGroup.add(portico);
+
+  // Portico glow strip
+  const porticoGlow = new THREE.Mesh(
+    new THREE.BoxGeometry(22.2, 0.4, 7.2),
+    new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 1.8 })
+  );
+  porticoGlow.position.set(0, 7.9, -56.5);
+  mallGroup.add(porticoGlow);
+
+  // "AMANJAYA MALL" signage (canvas texture on a billboard)
+  const signCanvas = document.createElement('canvas');
+  signCanvas.width = 1024; signCanvas.height = 128;
+  const sctx = signCanvas.getContext('2d');
+  sctx.fillStyle = '#0a0e17';
+  sctx.fillRect(0, 0, 1024, 128);
+  sctx.fillStyle = '#e6c77a';
+  sctx.font = '600 48px Manrope, sans-serif';
+  sctx.textAlign = 'center'; sctx.textBaseline = 'middle';
+  sctx.fillText('C-MART PREMIUM @ AMANJAYA MALL', 512, 64);
+  sctx.fillStyle = '#c9a961';
+  sctx.font = '400 18px monospace';
+  sctx.fillText('5.67365° N · 100.50982° E · 15,000 SQM', 512, 104);
+  const signTex = new THREE.CanvasTexture(signCanvas);
+  const sign = new THREE.Mesh(
+    new THREE.PlaneGeometry(60, 7.5),
+    new THREE.MeshBasicMaterial({ map: signTex, transparent: true })
+  );
+  sign.position.set(0, 27, -59.7);
+  mallGroup.add(sign);
+
+  scene.add(mallGroup);
+
+  /* ================================================================
+     MAINSTAGE — left quadrant, faces the plaza
+     ================================================================ */
+  const stageGroup = new THREE.Group();
+  stageGroup.position.set(0, 0, 25);
+  stageGroup.userData = {
+    zone: 'stage',
+    name: 'MainStage (Centre)',
+    booths: '1 · Centre',
+    area: '1,200 sqm',
+    body: 'Dead-centre plaza position · 360° audience flow · LED wall + pro PA. Anchors every MADANI moment of the 3 days.',
+    activities: [
+      'Opening Ceremony · Doa · Negaraku · ADUN address (Day 1, 10:00)',
+      'MADANI Belia Youth Q&A — 100 selected youth with ADUN',
+      'Leadership Forum: Santan (Catherine Goh) · ZUS (Venon Tian)',
+      'Usahawan Belia Awards · 5-category prize giving · Day 3',
+      'Sports Scouting Results · state/national trial invitations',
+      'Tier-A Headliner Concert · Faizal Tahir × Hael Husaini (Day 3)',
+      '150-drone Jalur Gemilang show · 10-min cold-fountain finale',
+      'Cultural Parade Finale — all zones feed into stage',
+      'Aina Abdul headline · Nicol David keynote (Malaysia Day Ed)'
+    ]
+  };
+
+  // Stage deck
+  const deck = new THREE.Mesh(
+    new THREE.BoxGeometry(22, 2, 14),
+    new THREE.MeshStandardMaterial({ color: C.stage, roughness: 0.6 })
+  );
+  deck.position.y = 1;
+  deck.castShadow = true;
+  deck.receiveShadow = true;
+  stageGroup.add(deck);
+
+  // LED wall backdrop (will be animated)
+  const ledCanvas = document.createElement('canvas');
+  ledCanvas.width = 512; ledCanvas.height = 288;
+  const ledCtx = ledCanvas.getContext('2d');
+  function drawLED(frame) {
+    const g = ledCtx.createLinearGradient(0, 0, 0, 288);
+    g.addColorStop(0, '#0a0e17'); g.addColorStop(1, '#1a2240');
+    ledCtx.fillStyle = g; ledCtx.fillRect(0, 0, 512, 288);
+
+    ledCtx.fillStyle = '#e6c77a';
+    ledCtx.font = 'italic 500 56px Fraunces, serif';
+    ledCtx.textAlign = 'center';
+
+    if (frame === 0) {
+      ledCtx.fillText('Karnival', 256, 110);
+      ledCtx.fillStyle = '#f4ecdc';
+      ledCtx.font = 'italic 400 28px Fraunces, serif';
+      ledCtx.fillText('Sungai Petani', 256, 150);
+      ledCtx.fillStyle = '#c9a961';
+      ledCtx.font = '500 18px monospace';
+      ledCtx.fillText('29—31 AUG · 14—16 SEP 2026', 256, 200);
+    } else if (frame === 1) {
+      ledCtx.fillStyle = '#cc0e2a';
+      ledCtx.fillRect(0, 0, 512, 288);
+      ledCtx.fillStyle = '#f4ecdc';
+      ledCtx.font = '700 80px Manrope';
+      ledCtx.fillText('MERDEKA', 256, 140);
+      ledCtx.font = 'italic 500 32px Fraunces, serif';
+      ledCtx.fillText('Kemerdekaan Ekonomi Belia', 256, 185);
+    } else {
+      ledCtx.fillStyle = '#0a0e17'; ledCtx.fillRect(0, 0, 512, 288);
+      ledCtx.fillStyle = '#e6c77a';
+      ledCtx.font = 'italic 400 38px Fraunces, serif';
+      ledCtx.fillText('400', 128, 130);
+      ledCtx.fillText('150K', 384, 130);
+      ledCtx.fillStyle = '#d8cfbe';
+      ledCtx.font = '500 14px monospace';
+      ledCtx.fillText('VENDORS', 128, 170);
+      ledCtx.fillText('FOOTFALL', 384, 170);
+    }
+  }
+  drawLED(0);
+  const ledTex = new THREE.CanvasTexture(ledCanvas);
+  const ledWall = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 11.2),
+    new THREE.MeshBasicMaterial({ map: ledTex })
+  );
+  ledWall.position.set(0, 7.6, -6.8);
+  stageGroup.add(ledWall);
+
+  // Truss frame
+  const trussMat = new THREE.MeshStandardMaterial({ color: C.stageTruss, roughness: 0.4, metalness: 0.7 });
+  const trussTop = new THREE.Mesh(new THREE.BoxGeometry(24, 0.5, 0.5), trussMat);
+  trussTop.position.set(0, 13.5, -6.8); stageGroup.add(trussTop);
+  [[-12, -6.8], [12, -6.8]].forEach(([x, z]) => {
+    const col = new THREE.Mesh(new THREE.BoxGeometry(0.5, 13.5, 0.5), trussMat);
+    col.position.set(x, 6.8, z);
+    stageGroup.add(col);
+  });
+
+  // Stage spotlights (stylised)
+  [-8, 0, 8].forEach(x => {
+    const lamp = new THREE.Mesh(
+      new THREE.ConeGeometry(0.6, 1.2, 8),
+      new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 1.2 })
+    );
+    lamp.position.set(x, 13.2, -6.6);
+    lamp.rotation.x = Math.PI * 0.7;
+    stageGroup.add(lamp);
+  });
+
+  // Stage click-target (invisible hitbox)
+  const stageHit = new THREE.Mesh(
+    new THREE.BoxGeometry(22, 14, 14),
+    new THREE.MeshBasicMaterial({ visible: false })
+  );
+  stageHit.position.y = 7;
+  stageHit.userData = stageGroup.userData;
+  stageGroup.add(stageHit);
+
+  scene.add(stageGroup);
+
+  /* ================================================================
+     VENDOR ZONES — clustered booth groups
+     Re-centred around MainStage at (0, 0, 25)
+     F&B split: Halal (east) vs Non-Halal (far-east) with buffer wall
+     ================================================================ */
+  const vendorZones = [
+    {
+      key: 'fnb_halal', name: 'F&B · Halal Section',
+      color: 0x6b9b4a, center: [38, -8], count: 45,
+      booths: 150, area: '2,300 sqm',
+      body: '150 JAKIM-certified booths. Subsidised RM300/booth (vs ~RM1.8K market) for first-time youth vendors — the MADANI barrier-removal in action.',
+      activities: [
+        'Laksa Kedah Heritage Row · 35 booths · Chef Wan judging Day 2',
+        'Santan Cooking Class (2× daily) · chef-led, 30 seats/session',
+        'ZUS Barista School · RM10 trial · certificate issued',
+        'Tealive Youth Barista Showdown · livestream to TikTok',
+        'Usahawan Belia Awards · 5 categories, RM-prize across winners',
+        'Mentorship Match · 1-on-1 with founders (access not cash)',
+        'Halal Food Truck Alley · 15 mobile vendors, gourmet row',
+        'Live Cooking Theatre · celebrity chef + local youth pairing'
+      ]
+    },
+    {
+      key: 'fnb_non_halal', name: 'F&B · Non-Halal Section',
+      color: 0xd94830, center: [58, -32], count: 14,
+      booths: 30, area: '500 sqm',
+      body: 'Own entrance, payment counter, dedicated waste stream. Standard dual-section festival management — clear bilingual signage between the two.',
+      activities: [
+        'Hainanese Chicken Rice heritage table · 3 operators',
+        'Penang-style Char Kway Teow live wok station',
+        'Indian Non-Halal Banana Leaf dining row',
+        'Chinese Dim Sum morning service · 7–11 AM daily',
+        'Artisan Coffee & Craft Brew Row · 6 booths',
+        'Dedicated Food Truck Zone · 4 mobile units',
+        'Chinese Kopitiam Heritage Row · 8 heritage operators'
+      ]
+    },
+    {
+      key: 'cultural', name: 'Cultural & Lifestyle',
+      color: 0xc76ba4, center: [45, 55], count: 28,
+      booths: 70, area: '1,200 sqm',
+      body: 'Small performance stage with rotating cultural acts across all 3 days. Multi-ethnic programming as MADANI Hormat made visible.',
+      activities: [
+        'Zapin Kedah opening (daily 11:00 AM)',
+        '24 Festive Drums 二十四节令鼓 · Malaysian Chinese · Day 2',
+        'Bharatanatyam classical Indian dance showcase',
+        'Kaamatan/Gawai Borneo cultural night · Day 2 evening',
+        'Silat Gayung Melayu × Wushu cross-cultural demo',
+        'Multi-cultural fashion runway · Baju Kedah · Cheongsam · Saree',
+        'Community story-sharing circles · multilingual',
+        'Henna art station · Gamelan music booth'
+      ]
+    },
+    {
+      key: 'handcraft', name: 'Handcraft & Heritage',
+      color: 0xb07a3d, center: [-42, -12], count: 32,
+      booths: 90, area: '1,600 sqm',
+      body: 'Curated through Kraftangan Malaysia Kedah, Usahanita, youth artisans. Strong Kedah rural-artisan fit — booth count bumped from 80 to 90 to match supply.',
+      activities: [
+        'Live Songket Weaving Loom · Kraftangan MY Kedah master',
+        'Labu Sayong Pottery Throwing Wheel · demonstration',
+        'Batik Tulis Hands-On Workshop · RM15 · 30 minutes',
+        'Wau Bulan Kite-Making Zone · children under 12 free',
+        'Usahanita Women Mini-Market · 25 women-led stalls',
+        'Pua Kumbu loom (Sarawak) · Kaamatan/Gawai tie-in',
+        'Artisan jewellery row (silver · brass · woodwork)',
+        'Craft Awards · Best Heritage · Best Newcomer · Most Creative'
+      ]
+    },
+    {
+      key: 'tech', name: 'Youth Digital & Creator',
+      color: 0x3d7eb5, center: [-50, 42], count: 14,
+      booths: 30, area: '600 sqm',
+      body: 'Calibrated for the SP creator economy — equipping 400 micro-enterprise vendors with platforms that keep earning after the carnival ends.',
+      activities: [
+        'TikTok Shop Setup Bootcamp · 30 min · free for all 400 vendors',
+        'IG Reels Masterclass · Meta Malaysia · for micro sellers',
+        'Live Selling Masterclass · TikTok Live + FB Live',
+        'Shopee seller onboarding · same-day account verification',
+        'Lazada LazMall micro-seller track',
+        'Content Creation Studio · free professional photoshoots',
+        'Usahawan Belia Awards · Content Challenge (RM10K pool)',
+        'Mentorship Match · 1-on-1 with Santan/ZUS/Tealive founders',
+        'AI-for-SME clinic · ChatGPT, Canva AI, automation demos',
+        'Local2Local Connect app · live onboarding · free setup'
+      ]
+    }
+  ];
+
+  const zoneGroups = {};
+
+  vendorZones.forEach(z => {
+    const g = new THREE.Group();
+    g.userData = { zone: z.key, name: z.name, booths: z.booths, area: z.area, body: z.body, activities: z.activities };
+
+    // Cluster booths on a shallow grid
+    const side = Math.ceil(Math.sqrt(z.count));
+    const spacing = 2.2;
+    const clusterSize = (side - 1) * spacing;
+    let n = 0;
+    for (let i = 0; i < side && n < z.count; i++) {
+      for (let j = 0; j < side && n < z.count; j++) {
+        const booth = new THREE.Mesh(
+          new THREE.BoxGeometry(1.6, 1.4, 1.6),
+          new THREE.MeshStandardMaterial({ color: z.color, roughness: 0.75 })
+        );
+        const ox = -clusterSize / 2 + i * spacing + (Math.random() - 0.5) * 0.2;
+        const oz = -clusterSize / 2 + j * spacing + (Math.random() - 0.5) * 0.2;
+        booth.position.set(z.center[0] + ox, 0.7, z.center[1] + oz);
+        booth.castShadow = true; booth.receiveShadow = true;
+        // slight canopy
+        const canopy = new THREE.Mesh(
+          new THREE.BoxGeometry(1.8, 0.15, 1.8),
+          new THREE.MeshStandardMaterial({ color: 0xf4ecdc, roughness: 0.9, opacity: 0.85, transparent: true })
+        );
+        canopy.position.y = 0.8;
+        booth.add(canopy);
+        booth.userData = g.userData;
+        g.add(booth);
+        n++;
+      }
+    }
+
+    // Zone label disc (on ground)
+    const disc = new THREE.Mesh(
+      new THREE.RingGeometry(clusterSize / 2 + 2, clusterSize / 2 + 2.5, 40),
+      new THREE.MeshBasicMaterial({ color: z.color, transparent: true, opacity: 0.35, side: THREE.DoubleSide })
+    );
+    disc.rotation.x = -Math.PI / 2;
+    disc.position.set(z.center[0], 0.05, z.center[1]);
+    g.add(disc);
+
+    scene.add(g);
+    zoneGroups[z.key] = g;
+  });
+
+  /* ================================================================
+     HALAL / NON-HALAL BUFFER WALL
+     Physical separator with bilingual signage between F&B sections
+     ================================================================ */
+  (function buildBufferWall() {
+    // Wall panel — runs diagonally between the two F&B clusters
+    const wallGroup = new THREE.Group();
+
+    // Canvas for the signage texture (bilingual)
+    const bCanvas = document.createElement('canvas');
+    bCanvas.width = 1024; bCanvas.height = 128;
+    const bctx = bCanvas.getContext('2d');
+    // Green half (halal side)
+    bctx.fillStyle = '#6b9b4a';
+    bctx.fillRect(0, 0, 512, 128);
+    bctx.fillStyle = '#f4ecdc';
+    bctx.font = '700 34px Manrope, sans-serif';
+    bctx.textAlign = 'center'; bctx.textBaseline = 'middle';
+    bctx.fillText('← HALAL', 256, 52);
+    bctx.font = '500 18px Manrope';
+    bctx.fillText('Sijil JAKIM · 130 gerai', 256, 88);
+    // Red half (non-halal side)
+    bctx.fillStyle = '#d94830';
+    bctx.fillRect(512, 0, 512, 128);
+    bctx.fillStyle = '#f4ecdc';
+    bctx.font = '700 34px Manrope, sans-serif';
+    bctx.fillText('NON-HALAL →', 768, 52);
+    bctx.font = '500 18px Manrope';
+    bctx.fillText('30 gerai · separate entry', 768, 88);
+    const bTex = new THREE.CanvasTexture(bCanvas);
+
+    // Banner panel (thin vertical wall)
+    const banner = new THREE.Mesh(
+      new THREE.BoxGeometry(22, 2.6, 0.15),
+      new THREE.MeshStandardMaterial({ map: bTex, roughness: 0.6, metalness: 0.1 })
+    );
+    // Position diagonally between halal cluster (38, -8) and non-halal (58, -32)
+    banner.position.set(48, 2.6, -20);
+    banner.rotation.y = Math.atan2(58 - 38, -32 - (-8)); // angle of separation
+    banner.castShadow = true;
+    wallGroup.add(banner);
+
+    // Support posts
+    for (let i = -1; i <= 1; i++) {
+      const post = new THREE.Mesh(
+        new THREE.BoxGeometry(0.3, 4.2, 0.3),
+        new THREE.MeshStandardMaterial({ color: 0x202836, roughness: 0.5 })
+      );
+      const offX = i * 9 * Math.cos(banner.rotation.y);
+      const offZ = i * 9 * Math.sin(banner.rotation.y);
+      post.position.set(48 + offX, 2.1, -20 + offZ);
+      wallGroup.add(post);
+    }
+
+    // Small landscaped planters at either end (gold-edged)
+    [[-10, 0], [10, 0]].forEach(([dx, dz]) => {
+      const planter = new THREE.Mesh(
+        new THREE.BoxGeometry(2.2, 0.8, 2.2),
+        new THREE.MeshStandardMaterial({ color: 0x3d4f38, roughness: 0.85 })
+      );
+      const offX = dx * Math.cos(banner.rotation.y);
+      const offZ = dx * Math.sin(banner.rotation.y);
+      planter.position.set(48 + offX, 0.4, -20 + offZ);
+      wallGroup.add(planter);
+
+      // Gold rim
+      const rim = new THREE.Mesh(
+        new THREE.BoxGeometry(2.3, 0.08, 2.3),
+        new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 0.7 })
+      );
+      rim.position.copy(planter.position);
+      rim.position.y = 0.85;
+      wallGroup.add(rim);
+    });
+
+    scene.add(wallGroup);
+  })();
+
+  /* ================================================================
+     ANIMATED ACTIVITY PROPS
+     Brings each zone alive with movement the ADUN can recognise
+     ================================================================ */
+  const steamParticles = [];
+  const dancerMeshes = [];
+  const sportsBalls = [];
+  let pitchPlatform = null;
+
+  // --- STEAM over F&B booths (halal + non-halal) ---
+  (function buildSteam() {
+    const steamMat = new THREE.MeshBasicMaterial({
+      color: 0xe8e0d0, transparent: true, opacity: 0.55, depthWrite: false
+    });
+    // Halal: 14 plumes scattered over the cluster
+    for (let i = 0; i < 14; i++) {
+      const puff = new THREE.Mesh(
+        new THREE.SphereGeometry(0.55 + Math.random() * 0.3, 6, 5),
+        steamMat.clone()
+      );
+      const ox = (Math.random() - 0.5) * 12;
+      const oz = (Math.random() - 0.5) * 12;
+      puff.position.set(38 + ox, 2 + Math.random() * 1.5, -8 + oz);
+      puff.userData = {
+        baseY: 2 + Math.random() * 1.5,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.5 + Math.random() * 0.4
+      };
+      scene.add(puff);
+      steamParticles.push(puff);
+    }
+    // Non-halal: 4 plumes
+    for (let i = 0; i < 4; i++) {
+      const puff = new THREE.Mesh(
+        new THREE.SphereGeometry(0.5 + Math.random() * 0.25, 6, 5),
+        steamMat.clone()
+      );
+      const ox = (Math.random() - 0.5) * 6;
+      const oz = (Math.random() - 0.5) * 6;
+      puff.position.set(58 + ox, 2 + Math.random() * 1.2, -32 + oz);
+      puff.userData = {
+        baseY: 2 + Math.random() * 1.2,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.5 + Math.random() * 0.4
+      };
+      scene.add(puff);
+      steamParticles.push(puff);
+    }
+  })();
+
+  // --- DANCER RING at Cultural zone (45, 55) ---
+  (function buildDancers() {
+    const center = { x: 45, z: 55 };
+    const colors = [0xcc0e2a, 0xc9a961, 0xc76ba4, 0x6b9b4a, 0x3d7eb5, 0xe6c77a];
+    for (let i = 0; i < 6; i++) {
+      const dancer = new THREE.Group();
+      // Body
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.35, 0.45, 1.3, 6),
+        new THREE.MeshStandardMaterial({ color: colors[i], roughness: 0.7 })
+      );
+      body.position.y = 0.65;
+      dancer.add(body);
+      // Head
+      const head = new THREE.Mesh(
+        new THREE.SphereGeometry(0.28, 8, 6),
+        new THREE.MeshStandardMaterial({ color: 0xd4b896, roughness: 0.9 })
+      );
+      head.position.y = 1.55;
+      dancer.add(head);
+      // Arms (simplified as thin cylinders)
+      const arm = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.1, 0.1, 0.8, 4),
+        new THREE.MeshStandardMaterial({ color: colors[i], roughness: 0.7 })
+      );
+      arm.position.set(0.5, 1, 0);
+      arm.rotation.z = Math.PI / 3;
+      dancer.add(arm);
+
+      dancer.userData = {
+        center,
+        radius: 3.8,
+        phase: (i / 6) * Math.PI * 2,
+        speed: 0.55,
+        bob: Math.random() * 0.5
+      };
+      dancer.position.set(
+        center.x + Math.cos(dancer.userData.phase) * dancer.userData.radius,
+        0,
+        center.z + Math.sin(dancer.userData.phase) * dancer.userData.radius
+      );
+      dancer.castShadow = true;
+      scene.add(dancer);
+      dancerMeshes.push(dancer);
+    }
+
+    // Small cultural stage (a modest raised platform at ring centre)
+    const smallStage = new THREE.Mesh(
+      new THREE.CylinderGeometry(2, 2.2, 0.5, 16),
+      new THREE.MeshStandardMaterial({ color: 0x2a1d2c, roughness: 0.6 })
+    );
+    smallStage.position.set(center.x, 0.25, center.z);
+    smallStage.receiveShadow = true;
+    scene.add(smallStage);
+
+    // Stage rim in magenta
+    const rim = new THREE.Mesh(
+      new THREE.TorusGeometry(2.1, 0.08, 6, 24),
+      new THREE.MeshStandardMaterial({ color: 0xc76ba4, emissive: 0xc76ba4, emissiveIntensity: 1.1 })
+    );
+    rim.position.set(center.x, 0.5, center.z);
+    rim.rotation.x = Math.PI / 2;
+    scene.add(rim);
+  })();
+
+  // --- TECH ZONE PITCH PLATFORM (pulsing) ---
+  (function buildPitchPlatform() {
+    const center = { x: -50, z: 42 };
+    // Raised platform
+    const platform = new THREE.Mesh(
+      new THREE.BoxGeometry(4, 0.4, 3),
+      new THREE.MeshStandardMaterial({ color: 0x1e3a6f, roughness: 0.5, metalness: 0.3 })
+    );
+    platform.position.set(center.x, 0.2, center.z);
+    platform.receiveShadow = true;
+    scene.add(platform);
+
+    // Screen (pitch-deck display)
+    const screen = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.4, 2),
+      new THREE.MeshStandardMaterial({
+        color: 0x3d7eb5,
+        emissive: 0x3d7eb5,
+        emissiveIntensity: 0.9,
+        side: THREE.DoubleSide
+      })
+    );
+    screen.position.set(center.x, 2.2, center.z - 1.3);
+    scene.add(screen);
+
+    // Pulsing underglow (this is what animates)
+    pitchPlatform = new THREE.Mesh(
+      new THREE.BoxGeometry(4.2, 0.12, 3.2),
+      new THREE.MeshStandardMaterial({
+        color: 0x3d7eb5,
+        emissive: 0x3d7eb5,
+        emissiveIntensity: 1.5,
+        transparent: true,
+        opacity: 0.8
+      })
+    );
+    pitchPlatform.position.set(center.x, 0.06, center.z);
+    scene.add(pitchPlatform);
+
+    // Prize trophy sparkle — small gold pyramid on the platform
+    const trophy = new THREE.Mesh(
+      new THREE.ConeGeometry(0.25, 0.8, 4),
+      new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 1.1, metalness: 0.7 })
+    );
+    trophy.position.set(center.x + 1.2, 0.8, center.z + 0.8);
+    trophy.rotation.y = Math.PI / 4;
+    scene.add(trophy);
+  })();
+
+  // --- SPORTS: animated shuttlecock / ball bouncing on each court ---
+  (function buildSportsBalls() {
+    // Maps to the same sportsItems positions (defined below in file, so hard-code here)
+    const ballSpots = [
+      { x: 70, z: -40, color: 0xf4ecdc, radius: 0.3, type: 'shuttle' },   // badminton
+      { x: 70, z: -25, color: 0xd94830, radius: 0.45, type: 'basket' },    // 3x3
+      { x: 70, z: -10, color: 0xe6c77a, radius: 0.25, type: 'pickle' },    // pickleball
+      { x: 70, z: 5,   color: 0xf4ecdc, radius: 0.4, type: 'futsal' },     // futsal
+      { x: 70, z: 22,  color: 0xb07a3d, radius: 0.3, type: 'takraw' }      // sepak takraw
+    ];
+    ballSpots.forEach(s => {
+      const ball = new THREE.Mesh(
+        new THREE.SphereGeometry(s.radius, 10, 8),
+        new THREE.MeshStandardMaterial({
+          color: s.color, roughness: 0.5, metalness: 0.1,
+          emissive: s.color, emissiveIntensity: 0.15
+        })
+      );
+      ball.position.set(s.x, 2, s.z);
+      ball.castShadow = true;
+      ball.userData = {
+        baseX: s.x,
+        baseZ: s.z,
+        phase: Math.random() * Math.PI * 2,
+        speed: 1.6 + Math.random() * 0.6
+      };
+      scene.add(ball);
+      sportsBalls.push(ball);
+    });
+  })();
+
+  /* ================================================================
+     EXTRA ACTIVITY PROPS — richer zone-level storytelling
+     ================================================================ */
+
+  // --- HANDCRAFT: rotating loom + spinning pottery wheel ---
+  const loomPropGroups = [];
+  (function buildHandcraftProps() {
+    const base = { x: -42, z: -12 };
+
+    // Loom structure (2 uprights + cross beam with rotating weave)
+    const loomGroup = new THREE.Group();
+    const uprightMat = new THREE.MeshStandardMaterial({ color: 0x6b4a2f, roughness: 0.85 });
+    [-0.8, 0.8].forEach(dx => {
+      const up = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.6, 0.15), uprightMat);
+      up.position.set(dx, 1.3, 0);
+      loomGroup.add(up);
+    });
+    const crossBeam = new THREE.Mesh(new THREE.BoxGeometry(2, 0.15, 0.15), uprightMat);
+    crossBeam.position.set(0, 2.45, 0);
+    loomGroup.add(crossBeam);
+    // Rotating weave cylinder (this is what animates)
+    const weave = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.25, 0.25, 1.6, 8),
+      new THREE.MeshStandardMaterial({ color: 0xd6a84d, roughness: 0.6, emissive: 0xd6a84d, emissiveIntensity: 0.1 })
+    );
+    weave.rotation.z = Math.PI / 2;
+    weave.position.set(0, 1.5, 0);
+    loomGroup.add(weave);
+    loomGroup.position.set(base.x - 8, 0, base.z - 7);
+    loomGroup.userData = { rotatingPart: weave };
+    scene.add(loomGroup);
+    loomPropGroups.push(loomGroup);
+
+    // Pottery wheel (spinning horizontal disc with pot)
+    const potteryGroup = new THREE.Group();
+    const wheelBase = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.8, 0.9, 0.8, 16),
+      new THREE.MeshStandardMaterial({ color: 0x3d2f1f, roughness: 0.85 })
+    );
+    wheelBase.position.y = 0.4;
+    potteryGroup.add(wheelBase);
+    const wheelTop = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.7, 0.7, 0.08, 16),
+      new THREE.MeshStandardMaterial({ color: 0x8a5a3a, roughness: 0.7 })
+    );
+    wheelTop.position.y = 0.85;
+    potteryGroup.add(wheelTop);
+    // The spinning pot (this is what animates)
+    const pot = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.22, 0.3, 0.55, 10),
+      new THREE.MeshStandardMaterial({ color: 0x9c5a2f, roughness: 0.9 })
+    );
+    pot.position.y = 1.15;
+    potteryGroup.add(pot);
+    potteryGroup.position.set(base.x + 8, 0, base.z + 7);
+    potteryGroup.userData = { rotatingPart: pot, baseWheel: wheelTop };
+    scene.add(potteryGroup);
+    loomPropGroups.push(potteryGroup);
+  })();
+
+  // --- F&B HALAL: raised live-cooking demo stage at cluster centre ---
+  (function buildCookingStage() {
+    const center = { x: 38, z: -8 };
+    // Raised platform
+    const platform = new THREE.Mesh(
+      new THREE.BoxGeometry(4.5, 0.4, 3),
+      new THREE.MeshStandardMaterial({ color: 0x2a2218, roughness: 0.6 })
+    );
+    platform.position.set(center.x, 0.2, center.z);
+    platform.receiveShadow = true;
+    scene.add(platform);
+
+    // Chef station "stove" (glowing red hot element)
+    const stove = new THREE.Mesh(
+      new THREE.BoxGeometry(1.5, 0.4, 1),
+      new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.4 })
+    );
+    stove.position.set(center.x, 0.6, center.z);
+    scene.add(stove);
+    const burner = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.4, 0.4, 0.08, 16),
+      new THREE.MeshStandardMaterial({
+        color: 0xff4020, emissive: 0xff4020, emissiveIntensity: 1.4
+      })
+    );
+    burner.position.set(center.x, 0.85, center.z);
+    scene.add(burner);
+
+    // Canopy over stage (warm glow)
+    const canopy = new THREE.Mesh(
+      new THREE.BoxGeometry(5, 0.2, 3.5),
+      new THREE.MeshStandardMaterial({ color: 0x6b9b4a, roughness: 0.85 })
+    );
+    canopy.position.set(center.x, 3, center.z);
+    scene.add(canopy);
+    [[-2, -1.3], [2, -1.3], [-2, 1.3], [2, 1.3]].forEach(([dx, dz]) => {
+      const post = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.06, 0.06, 2.8, 6),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a })
+      );
+      post.position.set(center.x + dx, 1.6, center.z + dz);
+      scene.add(post);
+    });
+
+    // "Signage" on canopy edge
+    const signCanvas2 = document.createElement('canvas');
+    signCanvas2.width = 512; signCanvas2.height = 64;
+    const s2ctx = signCanvas2.getContext('2d');
+    s2ctx.fillStyle = '#6b9b4a';
+    s2ctx.fillRect(0, 0, 512, 64);
+    s2ctx.fillStyle = '#f4ecdc';
+    s2ctx.font = '600 28px Manrope, sans-serif';
+    s2ctx.textAlign = 'center'; s2ctx.textBaseline = 'middle';
+    s2ctx.fillText('LIVE COOKING THEATRE · Halal', 256, 32);
+    const s2tex = new THREE.CanvasTexture(signCanvas2);
+    const signPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(5, 0.7),
+      new THREE.MeshBasicMaterial({ map: s2tex })
+    );
+    signPlane.position.set(center.x, 2.55, center.z + 1.76);
+    scene.add(signPlane);
+  })();
+
+  // --- TECH: audience chairs facing pitch platform + flying drone ---
+  let techDrone = null;
+  (function buildTechAudience() {
+    const techCenter = { x: -50, z: 42 };
+    // 3 rows × 5 chairs facing the platform (chairs at z > platform)
+    const chairMat = new THREE.MeshStandardMaterial({ color: 0x14243a, roughness: 0.7 });
+    for (let row = 0; row < 3; row++) {
+      for (let col = -2; col <= 2; col++) {
+        const chair = new THREE.Mesh(
+          new THREE.BoxGeometry(0.6, 0.6, 0.6),
+          chairMat
+        );
+        chair.position.set(
+          techCenter.x + col * 0.9,
+          0.3,
+          techCenter.z + 2.5 + row * 1.1
+        );
+        chair.castShadow = true;
+        scene.add(chair);
+        // Chair back
+        const back = new THREE.Mesh(
+          new THREE.BoxGeometry(0.6, 0.8, 0.08),
+          chairMat
+        );
+        back.position.set(
+          techCenter.x + col * 0.9,
+          0.9,
+          techCenter.z + 2.8 + row * 1.1
+        );
+        scene.add(back);
+      }
+    }
+
+    // Flying drone (quadcopter) above Tech zone
+    const drone = new THREE.Group();
+    const body = new THREE.Mesh(
+      new THREE.BoxGeometry(0.5, 0.12, 0.5),
+      new THREE.MeshStandardMaterial({ color: 0x1a1a22, roughness: 0.4, metalness: 0.5 })
+    );
+    drone.add(body);
+    // 4 rotor arms + spinning rotors
+    [[0.35, 0.35], [-0.35, 0.35], [0.35, -0.35], [-0.35, -0.35]].forEach(([dx, dz]) => {
+      const arm = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.04, 0.3, 6),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a22 })
+      );
+      arm.position.set(dx * 0.7, 0, dz * 0.7);
+      arm.rotation.z = Math.PI / 2;
+      arm.rotation.y = Math.atan2(dz, dx);
+      drone.add(arm);
+
+      const rotor = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.3, 0.3, 0.02, 12),
+        new THREE.MeshStandardMaterial({ color: 0xd8cfbe, transparent: true, opacity: 0.3 })
+      );
+      rotor.position.set(dx, 0.08, dz);
+      rotor.userData.spinning = true;
+      drone.add(rotor);
+    });
+    // Green underbelly LED
+    const led = new THREE.Mesh(
+      new THREE.SphereGeometry(0.08, 8, 6),
+      new THREE.MeshStandardMaterial({ color: 0x00ff66, emissive: 0x00ff66, emissiveIntensity: 1.5 })
+    );
+    led.position.y = -0.1;
+    drone.add(led);
+
+    drone.position.set(techCenter.x, 7, techCenter.z);
+    drone.userData = { center: techCenter, radius: 6, phase: 0, speed: 0.7 };
+    scene.add(drone);
+    techDrone = drone;
+  })();
+
+  // --- SPORTS: urban skate ramp (quarter-pipe shape) ---
+  (function buildSkateRamp() {
+    // Ramp composed of stacked boxes forming a curve
+    const rampGroup = new THREE.Group();
+    const rampMat = new THREE.MeshStandardMaterial({ color: 0x888c96, roughness: 0.85 });
+    for (let i = 0; i < 6; i++) {
+      const h = 0.5 + i * 0.25;
+      const box = new THREE.Mesh(
+        new THREE.BoxGeometry(3.5, h, 0.8),
+        rampMat
+      );
+      box.position.set(70, h / 2, 40 - i * 0.8);
+      box.castShadow = true;
+      rampGroup.add(box);
+    }
+    // Top edge (coping in gold)
+    const coping = new THREE.Mesh(
+      new THREE.BoxGeometry(3.5, 0.15, 0.3),
+      new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 0.6 })
+    );
+    coping.position.set(70, 2, 35.8);
+    rampGroup.add(coping);
+    scene.add(rampGroup);
+  })();
+
+  // --- CULTURAL: additional fashion runway strip next to dancer ring ---
+  (function buildRunway() {
+    const center = { x: 45, z: 55 };
+    const runway = new THREE.Mesh(
+      new THREE.BoxGeometry(8, 0.2, 1.5),
+      new THREE.MeshStandardMaterial({
+        color: 0x4a2a40,
+        roughness: 0.4,
+        emissive: 0xc76ba4,
+        emissiveIntensity: 0.08
+      })
+    );
+    runway.position.set(center.x + 9, 0.1, center.z);
+    runway.receiveShadow = true;
+    scene.add(runway);
+
+    // Runway LED edge lights
+    for (let i = -3; i <= 3; i++) {
+      const light = new THREE.Mesh(
+        new THREE.SphereGeometry(0.08, 6, 5),
+        new THREE.MeshStandardMaterial({ color: 0xe6c77a, emissive: 0xe6c77a, emissiveIntensity: 1.5 })
+      );
+      light.position.set(center.x + 9 + i * 1.1, 0.22, center.z + 0.8);
+      scene.add(light);
+    }
+    for (let i = -3; i <= 3; i++) {
+      const light = new THREE.Mesh(
+        new THREE.SphereGeometry(0.08, 6, 5),
+        new THREE.MeshStandardMaterial({ color: 0xe6c77a, emissive: 0xe6c77a, emissiveIntensity: 1.5 })
+      );
+      light.position.set(center.x + 9 + i * 1.1, 0.22, center.z - 0.8);
+      scene.add(light);
+    }
+  })();
+
+
+
+  /* ================================================================
+     SPORTS ZONES — 7 distinct activations (right-side strip)
+     ================================================================ */
+  const sportsGroup = new THREE.Group();
+  sportsGroup.userData = {
+    zone: 'sports', name: 'Sports + Scouting Pipeline', booths: '7 zones', area: '3,800 sqm',
+    body: 'Every zone is both a play activation and a talent-ID station. MSN, BAM, FAM, MPA, PERSES, PESAKA, MESF scouts present. Selected youth get formal invites to state/national team trials — the carnival becomes a KBS pipeline.',
+    activities: [
+      'Badminton · Lee Zii Jia clinic (100 youth) + BAM accredited scouts',
+      '3×3 Basketball · 64-team bracket + MBPP Kedah state scouts',
+      'Pickleball Open · MPA U21 national team talent ID',
+      'Futsal · Harimau Malaya exhibition + FAM + Kedah DA FC scouts',
+      'Sepak Takraw + Silat · PERSES + PESAKA traditional-sport ID',
+      'Urban Skate/BMX · Olympic pathway · Malaysia Skate Association',
+      'E-Sports Dome · MESF national team trials (ML, Valorant)',
+      'Formal registration booth · youth submit sports profile',
+      'State/national trial invites issued post-carnival'
+    ]
+  };
+
+  const sportsItems = [
+    { x: 70, z: -40, label: 'Badminton' },
+    { x: 70, z: -25, label: '3×3 Basket' },
+    { x: 70, z: -10, label: 'Pickleball' },
+    { x: 70, z: 5, label: 'Futsal' },
+    { x: 70, z: 22, label: 'Sepak Takraw', round: true },
+    { x: 70, z: 40, label: 'Urban Skate' },
+    { x: 70, z: 58, label: 'E-Sports Dome', dome: true }
+  ];
+
+  sportsItems.forEach(it => {
+    if (it.dome) {
+      const dome = new THREE.Mesh(
+        new THREE.SphereGeometry(5, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2),
+        new THREE.MeshStandardMaterial({
+          color: C.sports, roughness: 0.4, metalness: 0.3,
+          emissive: C.sports, emissiveIntensity: 0.15
+        })
+      );
+      dome.position.set(it.x, 0.01, it.z);
+      dome.castShadow = true;
+      dome.userData = sportsGroup.userData;
+      sportsGroup.add(dome);
+    } else if (it.round) {
+      // Sepak takraw circular court
+      const court = new THREE.Mesh(
+        new THREE.CylinderGeometry(5, 5, 0.4, 24),
+        new THREE.MeshStandardMaterial({ color: C.sports, roughness: 0.7 })
+      );
+      court.position.set(it.x, 0.2, it.z);
+      court.castShadow = true; court.receiveShadow = true;
+      court.userData = sportsGroup.userData;
+      sportsGroup.add(court);
+    } else {
+      // Rectangular court with painted lines
+      const court = new THREE.Mesh(
+        new THREE.BoxGeometry(10, 0.4, 6),
+        new THREE.MeshStandardMaterial({ color: C.sports, roughness: 0.7 })
+      );
+      court.position.set(it.x, 0.2, it.z);
+      court.castShadow = true; court.receiveShadow = true;
+      court.userData = sportsGroup.userData;
+      sportsGroup.add(court);
+      // Net / post
+      const post = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.08, 0.08, 2.4, 8),
+        new THREE.MeshStandardMaterial({ color: 0x0a0e17 })
+      );
+      post.position.set(it.x, 1.4, it.z);
+      post.userData = sportsGroup.userData;
+      sportsGroup.add(post);
+    }
+  });
+
+  // Sports zone disc
+  const sportsDisc = new THREE.Mesh(
+    new THREE.RingGeometry(11, 11.5, 40),
+    new THREE.MeshBasicMaterial({ color: C.sports, transparent: true, opacity: 0.25, side: THREE.DoubleSide })
+  );
+  sportsDisc.rotation.x = -Math.PI / 2;
+  sportsDisc.position.set(70, 0.03, 10);
+  sportsDisc.scale.set(1, 4.5, 1); // elongated oval
+  sportsGroup.add(sportsDisc);
+
+  scene.add(sportsGroup);
+  zoneGroups.sports = sportsGroup;
+
+  /* ================================================================
+     OPS · SURAU · ICC · MEDICAL PAVILIONS
+     ================================================================ */
+  const opsGroup = new THREE.Group();
+  opsGroup.userData = {
+    zone: 'ops', name: 'Ops · Surau · Medical', booths: 5, area: '600 sqm',
+    body: 'Operational backbone · MADANI Ihsan in practice. Everything that keeps 50K/day visitors safe and dignified.',
+    activities: [
+      'Incident Command Centre · 16-screen CCTV wall · live ops room',
+      'MRC + SJAM ambulance standby · 10-min guaranteed response',
+      'On-site surau (pria/wanita) · full ablution · air-conditioned',
+      'KKM "Jom Sihat Malaysia" tent · free BP / BMI / diabetes screening',
+      'Multilingual information desk · BM · EN · Mandarin · Tamil',
+      'Lost & found · breastfeeding room · disabled-access path',
+      'Dedicated logistics compound · 3 AM–10 AM load-in window',
+      'Media centre · press lounge with livestream feeds'
+    ]
+  };
+
+  const opsItems = [
+    { x: -78, z: 0, label: 'Surau' },
+    { x: -78, z: 20, label: 'Medical' },
+    { x: -78, z: 40, label: 'ICC' },
+    { x: -78, z: -20, label: 'Logistics' }
+  ];
+  opsItems.forEach(it => {
+    const pav = new THREE.Mesh(
+      new THREE.BoxGeometry(6, 3.2, 5),
+      new THREE.MeshStandardMaterial({ color: C.ops, roughness: 0.75 })
+    );
+    pav.position.set(it.x, 1.6, it.z);
+    pav.castShadow = true; pav.receiveShadow = true;
+    pav.userData = opsGroup.userData;
+    opsGroup.add(pav);
+    // Tip indicator
+    const tip = new THREE.Mesh(
+      new THREE.ConeGeometry(0.5, 1.2, 4),
+      new THREE.MeshStandardMaterial({ color: C.gold, emissive: C.gold, emissiveIntensity: 0.8 })
+    );
+    tip.position.set(it.x, 3.8, it.z);
+    tip.userData = opsGroup.userData;
+    opsGroup.add(tip);
+  });
+
+  scene.add(opsGroup);
+  zoneGroups.ops = opsGroup;
+  zoneGroups.stage = stageGroup;
+
+  /* ================================================================
+     JALUR GEMILANG FLAGS — perimeter
+     ================================================================ */
+  const flagCanvas = document.createElement('canvas');
+  flagCanvas.width = 256; flagCanvas.height = 128;
+  const fctx = flagCanvas.getContext('2d');
+  // 14 stripes (7 red, 7 white)
+  const stripeH = 128 / 14;
+  for (let s = 0; s < 14; s++) {
+    fctx.fillStyle = s % 2 === 0 ? '#cc0e2a' : '#f4ecdc';
+    fctx.fillRect(0, s * stripeH, 256, stripeH);
+  }
+  // Blue canton (upper hoist)
+  fctx.fillStyle = '#1e3a6f';
+  fctx.fillRect(0, 0, 128, 8 * stripeH);
+  // Crescent
+  fctx.beginPath();
+  fctx.fillStyle = '#ffcc00';
+  fctx.arc(50, 36, 17, 0, Math.PI * 2);
+  fctx.fill();
+  fctx.beginPath();
+  fctx.fillStyle = '#1e3a6f';
+  fctx.arc(57, 35, 14, 0, Math.PI * 2);
+  fctx.fill();
+  // 14-point star (simplified)
+  fctx.fillStyle = '#ffcc00';
+  fctx.beginPath();
+  const cx = 82, cy = 37, r1 = 10, r2 = 5;
+  for (let i = 0; i < 28; i++) {
+    const a = (i / 28) * Math.PI * 2 - Math.PI / 2;
+    const r = i % 2 === 0 ? r1 : r2;
+    const x = cx + Math.cos(a) * r;
+    const y = cy + Math.sin(a) * r;
+    if (i === 0) fctx.moveTo(x, y); else fctx.lineTo(x, y);
+  }
+  fctx.closePath(); fctx.fill();
+
+  const flagTex = new THREE.CanvasTexture(flagCanvas);
+
+  const flagGroup = new THREE.Group();
+  const flagPositions = [
+    [-80, 65], [-40, 72], [0, 75], [40, 72], [80, 65],
+    [-80, -45], [80, -45]
+  ];
+
+  const flagMeshes = [];
+  flagPositions.forEach(([x, z]) => {
+    // Pole
+    const pole = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.15, 0.15, 15, 8),
+      new THREE.MeshStandardMaterial({ color: 0xe8e2d4, metalness: 0.3, roughness: 0.5 })
+    );
+    pole.position.set(x, 7.5, z);
+    pole.castShadow = true;
+    flagGroup.add(pole);
+    // Gold ball top
+    const ball = new THREE.Mesh(
+      new THREE.SphereGeometry(0.3, 8, 8),
+      new THREE.MeshStandardMaterial({ color: C.gold, metalness: 0.7, roughness: 0.3 })
+    );
+    ball.position.set(x, 15.2, z);
+    flagGroup.add(ball);
+    // Flag (plane mesh that waves)
+    const flagGeo = new THREE.PlaneGeometry(5, 2.5, 12, 6);
+    const flag = new THREE.Mesh(
+      flagGeo,
+      new THREE.MeshStandardMaterial({ map: flagTex, side: THREE.DoubleSide, roughness: 0.9 })
+    );
+    flag.position.set(x + 2.5, 13.5, z);
+    flag.userData.basePositions = flagGeo.attributes.position.array.slice();
+    flag.userData.phase = Math.random() * Math.PI * 2;
+    flagGroup.add(flag);
+    flagMeshes.push(flag);
+  });
+  scene.add(flagGroup);
+
+  /* ================================================================
+     PERIMETER TREES
+     ================================================================ */
+  const treeGroup = new THREE.Group();
+  const treePositions = [];
+  for (let i = 0; i < 40; i++) {
+    let x, z;
+    const side = i % 4;
+    if (side === 0) { x = -95 - Math.random() * 8; z = -50 + (i / 40) * 130 + (Math.random() - 0.5) * 4; }
+    else if (side === 1) { x = 95 + Math.random() * 8; z = -50 + (i / 40) * 130 + (Math.random() - 0.5) * 4; }
+    else if (side === 2) { x = -90 + (i / 40) * 180 + (Math.random() - 0.5) * 4; z = 82 + Math.random() * 6; }
+    else { x = -90 + (i / 40) * 180 + (Math.random() - 0.5) * 4; z = -58 - Math.random() * 6; }
+    treePositions.push([x, z]);
+  }
+  treePositions.forEach(([x, z]) => {
+    const trunk = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.3, 0.4, 2.5, 5),
+      new THREE.MeshStandardMaterial({ color: C.trunk, roughness: 0.9 })
+    );
+    trunk.position.set(x, 1.25, z);
+    treeGroup.add(trunk);
+
+    const foliage = new THREE.Mesh(
+      new THREE.SphereGeometry(1.6 + Math.random() * 0.7, 6, 5),
+      new THREE.MeshStandardMaterial({ color: C.tree, roughness: 0.9 })
+    );
+    foliage.position.set(x, 3.5, z);
+    foliage.scale.y = 1.2;
+    foliage.castShadow = true;
+    treeGroup.add(foliage);
+  });
+  scene.add(treeGroup);
+
+  /* ================================================================
+     CROWD PARTICLES (animated orbit)
+     ================================================================ */
+  const crowdGroup = new THREE.Group();
+  const crowdData = [];
+  const crowdCount = 240;
+  for (let i = 0; i < crowdCount; i++) {
+    const personMat = new THREE.MeshStandardMaterial({
+      color: [0xd8cfbe, 0xb5a58c, 0xa3c4d9, 0xd99a85][Math.floor(Math.random() * 4)],
+      roughness: 0.85
+    });
+    const person = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.25, 0.35, 1.5, 5),
+      personMat
+    );
+    // Random start position within plaza (matches new layout)
+    const zone = Math.floor(Math.random() * 6);
+    let px, pz;
+    if (zone === 0)      { px = 38 + (Math.random() - 0.5) * 14; pz = -8 + (Math.random() - 0.5) * 14; }   // F&B Halal
+    else if (zone === 1) { px = 58 + (Math.random() - 0.5) * 7; pz = -32 + (Math.random() - 0.5) * 7; }     // F&B Non-Halal (fewer)
+    else if (zone === 2) { px = (Math.random() - 0.5) * 30; pz = 40 + (Math.random() - 0.5) * 18; }         // in front of centred stage
+    else if (zone === 3) { px = -42 + (Math.random() - 0.5) * 14; pz = -12 + (Math.random() - 0.5) * 14; }  // handcraft
+    else if (zone === 4) { px = 45 + (Math.random() - 0.5) * 14; pz = 55 + (Math.random() - 0.5) * 14; }    // cultural
+    else                 { px = -50 + (Math.random() - 0.5) * 12; pz = 42 + (Math.random() - 0.5) * 12; }   // tech
+    person.position.set(px, 0.75, pz);
+    crowdGroup.add(person);
+    crowdData.push({
+      mesh: person,
+      origin: new THREE.Vector2(px, pz),
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.4 + Math.random() * 0.5,
+      radius: 0.5 + Math.random() * 1.8
+    });
+  }
+  scene.add(crowdGroup);
+
+  /* ================================================================
+     CUSTOM ORBIT CONTROLS (pointer drag + wheel zoom)
+     ================================================================ */
+  const target = new THREE.Vector3(0, 0, 10);
+  const spherical = new THREE.Spherical();
+  const camVec = new THREE.Vector3().subVectors(camera.position, target);
+  spherical.setFromVector3(camVec);
+
+  const state = {
+    dragging: false,
+    lastX: 0,
+    lastY: 0,
+    autoRotate: true,
+    autoRotateSpeed: 0.06,
+    crowdFlow: true,
+    dusk: true,
+    minRadius: 35,
+    maxRadius: 220,
+    minPolar: 0.12,
+    maxPolar: Math.PI * 0.47,
+    targetSpherical: spherical.clone(),
+    targetTarget: target.clone()
+  };
+
+  function updateCamera() {
+    const pos = new THREE.Vector3().setFromSpherical(spherical);
+    camera.position.copy(pos).add(target);
+    camera.lookAt(target);
+
+    // Update compass needle
+    const angle = Math.atan2(camera.position.x - target.x, camera.position.z - target.z);
+    const needle = document.getElementById('compass-needle');
+    if (needle) needle.style.transform = `translate(-50%, -100%) rotate(${-angle}rad)`;
+  }
+
+  function onPointerDown(e) {
+    state.dragging = true;
+    state.lastX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    state.lastY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+    renderer.domElement.style.cursor = 'grabbing';
+    document.getElementById('map-instruction').classList.remove('visible');
+  }
+
+  function onPointerMove(e) {
+    const cx = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    const cy = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+
+    // Hover raycasting when not dragging
+    if (!state.dragging) {
+      updateTooltip(cx, cy);
+      return;
+    }
+    const dx = cx - state.lastX;
+    const dy = cy - state.lastY;
+    state.lastX = cx;
+    state.lastY = cy;
+
+    state.targetSpherical.theta -= dx * 0.008;
+    state.targetSpherical.phi -= dy * 0.008;
+    state.targetSpherical.phi = Math.max(state.minPolar, Math.min(state.maxPolar, state.targetSpherical.phi));
+  }
+
+  function onPointerUp() {
+    state.dragging = false;
+    renderer.domElement.style.cursor = 'grab';
+  }
+
+  function onWheel(e) {
+    e.preventDefault();
+    const delta = e.deltaY * 0.05;
+    state.targetSpherical.radius += delta;
+    state.targetSpherical.radius = Math.max(state.minRadius, Math.min(state.maxRadius, state.targetSpherical.radius));
+  }
+
+  renderer.domElement.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  renderer.domElement.addEventListener('wheel', onWheel, { passive: false });
+  renderer.domElement.addEventListener('touchstart', onPointerDown, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+  window.addEventListener('touchend', onPointerUp);
+
+  /* ================================================================
+     RAYCASTING — click zones
+     ================================================================ */
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+  const tooltip = document.getElementById('map-tooltip');
+
+  function getPointerNDC(clientX, clientY) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+  }
+
+  function updateTooltip(cx, cy) {
+    getPointerNDC(cx, cy);
+    raycaster.setFromCamera(pointer, camera);
+    const hits = raycaster.intersectObjects(scene.children, true);
+    let hit = null;
+    for (const h of hits) {
+      let obj = h.object;
+      while (obj && !obj.userData.zone) obj = obj.parent;
+      if (obj && obj.userData.zone) { hit = obj; break; }
+    }
+    if (hit) {
+      tooltip.textContent = hit.userData.name;
+      tooltip.classList.add('visible');
+      const rect = container.getBoundingClientRect();
+      tooltip.style.left = (cx - rect.left + 14) + 'px';
+      tooltip.style.top = (cy - rect.top + 14) + 'px';
+    } else {
+      tooltip.classList.remove('visible');
+    }
+  }
+
+  function onClick(e) {
+    if (state.dragging) return;
+    const cx = e.clientX || (e.changedTouches && e.changedTouches[0].clientX);
+    const cy = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
+    if (cx == null) return;
+    getPointerNDC(cx, cy);
+    raycaster.setFromCamera(pointer, camera);
+    const hits = raycaster.intersectObjects(scene.children, true);
+    for (const h of hits) {
+      let obj = h.object;
+      while (obj && !obj.userData.zone) obj = obj.parent;
+      if (obj && obj.userData.zone) {
+        selectZone(obj.userData, true); // focus camera on click
+        return;
+      }
+    }
+  }
+  renderer.domElement.addEventListener('click', onClick);
+
+  // Map of zone-key -> preferred focus target for click-to-focus
+  const zoneFocus = {
+    stage:        { pos: [0, 20, 60],   target: [0, 6, 25] },
+    fnb_halal:    { pos: [70, 30, 15],  target: [38, 2, -8] },
+    fnb_non_halal:{ pos: [88, 22, -8],  target: [58, 2, -32] },
+    cultural:     { pos: [75, 26, 80],  target: [45, 2, 55] },
+    handcraft:    { pos: [-75, 26, 20], target: [-42, 2, -12] },
+    tech:         { pos: [-80, 24, 70], target: [-50, 2, 42] },
+    sports:       { pos: [130, 30, 10], target: [70, 0, 5] },
+    ops:          { pos: [-110, 28, 10], target: [-78, 2, 10] }
+  };
+
+  function selectZone(ud, focusCamera) {
+    document.getElementById('zi-label').textContent = ud.zone.replace('_', ' · ').toUpperCase() + ' Zone';
+    document.getElementById('zi-name').innerHTML = ud.name.replace(
+      /(Halal|Non-Halal|Heritage|Lifestyle|Tech|Activations|Medical|Centre)/,
+      '<em>$1</em>'
+    );
+    document.getElementById('zi-body').textContent = ud.body ||
+      'Selected zone. Click another zone or pick a camera preset to continue exploring.';
+    document.getElementById('zi-m1').innerHTML = `Booths <strong>${ud.booths}</strong>`;
+    document.getElementById('zi-m2').innerHTML = `Area <strong>${ud.area}</strong>`;
+
+    // Render activities
+    const actEl = document.getElementById('zi-activities');
+    if (ud.activities && ud.activities.length) {
+      let html = '<div class="zi-act-label">Sample Activities</div><ul class="zi-act-list">';
+      ud.activities.forEach(a => { html += `<li>${a}</li>`; });
+      html += '</ul>';
+      actEl.innerHTML = html;
+    } else {
+      actEl.innerHTML = '<div class="zi-act-label">Click any zone for sample activities</div>';
+    }
+
+    document.querySelectorAll('.legend-row').forEach(r => r.classList.toggle('active', r.dataset.zone === ud.zone));
+
+    // Focus camera on clicked zone (not on initial/legend highlight)
+    if (focusCamera && zoneFocus[ud.zone]) {
+      const f = zoneFocus[ud.zone];
+      const newPos = new THREE.Vector3(...f.pos);
+      const newTarget = new THREE.Vector3(...f.target);
+      const newVec = new THREE.Vector3().subVectors(newPos, newTarget);
+      state.targetSpherical.setFromVector3(newVec);
+      state.targetTarget.copy(newTarget);
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    }
+  }
+
+  // Legend click = highlight + pulse + focus camera
+  document.querySelectorAll('.legend-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const zk = row.dataset.zone;
+      const g = zoneGroups[zk];
+      if (!g) return;
+      selectZone(g.userData, true);
+      // Pulse effect: flash booth scale up + down
+      g.traverse(o => {
+        if (o.isMesh && o.material) {
+          const s = o.scale.clone();
+          o.scale.multiplyScalar(1.25);
+          setTimeout(() => o.scale.copy(s), 240);
+        }
+      });
+    });
+  });
+
+  /* ================================================================
+     CAMERA PRESETS
+     ================================================================ */
+  const presets = {
+    overview: { pos: [90, 95, 130], target: [0, 0, 10] },
+    stage:    { pos: [0, 30, 90], target: [0, 8, 25] },
+    sports:   { pos: [130, 40, 10], target: [70, 0, 5] },
+    street:   { pos: [40, 22, 85], target: [30, 2, -10] },
+    ground:   { pos: [45, 8, 85], target: [0, 3, 20] }
+  };
+
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const p = presets[btn.dataset.preset];
+      if (!p) return;
+      const newPos = new THREE.Vector3(...p.pos);
+      const newTarget = new THREE.Vector3(...p.target);
+      const newVec = new THREE.Vector3().subVectors(newPos, newTarget);
+      state.targetSpherical.setFromVector3(newVec);
+      state.targetTarget.copy(newTarget);
+    });
+  });
+
+  /* ================================================================
+     TOGGLES
+     ================================================================ */
+  document.querySelectorAll('.toggle').forEach(t => {
+    t.addEventListener('click', () => {
+      t.classList.toggle('active');
+      const key = t.dataset.toggle;
+      if (key === 'rotate') state.autoRotate = t.classList.contains('active');
+      if (key === 'crowd')  state.crowdFlow = t.classList.contains('active');
+      if (key === 'dusk') {
+        state.dusk = t.classList.contains('active');
+        stageLight.intensity = state.dusk ? 2.8 : 0.4;
+        ambient.intensity = state.dusk ? 0.32 : 0.8;
+        hemi.intensity = state.dusk ? 0.28 : 0.6;
+        sun.intensity = state.dusk ? 0.9 : 1.3;
+        scene.fog.color.setHex(state.dusk ? C.bgBottom : 0x2a3548);
+        scene.background.setHex(state.dusk ? C.bgBottom : 0x2a3548);
+      }
+    });
+  });
+
+  /* ================================================================
+     RESIZE
+     ================================================================ */
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+
+  /* ================================================================
+     ANIMATION LOOP
+     ================================================================ */
+  let ledFrame = 0;
+  let ledTimer = 0;
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const dt = clock.getDelta();
+    const t = clock.elapsedTime;
+
+    // Smooth spherical lerp toward target
+    spherical.theta += (state.targetSpherical.theta - spherical.theta) * 0.08;
+    spherical.phi += (state.targetSpherical.phi - spherical.phi) * 0.08;
+    spherical.radius += (state.targetSpherical.radius - spherical.radius) * 0.08;
+    target.lerp(state.targetTarget, 0.08);
+
+    // Auto orbit (only if not dragging)
+    if (state.autoRotate && !state.dragging) {
+      state.targetSpherical.theta -= state.autoRotateSpeed * dt;
+    }
+
+    updateCamera();
+
+    // Crowd flow
+    if (state.crowdFlow) {
+      crowdData.forEach(c => {
+        c.phase += c.speed * dt;
+        c.mesh.position.x = c.origin.x + Math.cos(c.phase) * c.radius;
+        c.mesh.position.z = c.origin.y + Math.sin(c.phase) * c.radius;
+      });
+    }
+
+    // Steam plumes — rise, fade, reset
+    if (state.crowdFlow) {
+      steamParticles.forEach(p => {
+        p.userData.phase += p.userData.speed * dt;
+        const rise = (p.userData.phase % 3.5) / 3.5; // 0 to 1 over 3.5 units
+        p.position.y = p.userData.baseY + rise * 4.5;
+        p.material.opacity = 0.55 * (1 - rise);
+        p.scale.setScalar(1 + rise * 1.4);
+      });
+    }
+
+    // Dancer ring — orbit + subtle bob
+    dancerMeshes.forEach(d => {
+      d.userData.phase += d.userData.speed * dt;
+      const u = d.userData;
+      d.position.x = u.center.x + Math.cos(u.phase) * u.radius;
+      d.position.z = u.center.z + Math.sin(u.phase) * u.radius;
+      d.position.y = Math.abs(Math.sin(u.phase * 2.2)) * 0.25;
+      d.rotation.y = -u.phase + Math.PI / 2;
+    });
+
+    // Tech pitch platform pulse
+    if (pitchPlatform) {
+      const pulse = 1.2 + Math.sin(t * 2.4) * 0.5;
+      pitchPlatform.material.emissiveIntensity = pulse;
+      pitchPlatform.material.opacity = 0.5 + Math.sin(t * 2.4) * 0.25;
+    }
+
+    // Sports balls — parabolic bounce + slight x jitter (rallies)
+    sportsBalls.forEach(b => {
+      b.userData.phase += b.userData.speed * dt;
+      const bounceT = (b.userData.phase % (Math.PI * 2)) / (Math.PI * 2);
+      // Up-down bounce (parabolic)
+      const h = 1 + Math.abs(Math.sin(b.userData.phase * 0.9)) * 3;
+      b.position.y = h;
+      b.position.x = b.userData.baseX + Math.sin(b.userData.phase * 0.5) * 2;
+      b.position.z = b.userData.baseZ + Math.cos(b.userData.phase * 0.3) * 1.2;
+      b.rotation.x += dt * 4;
+      b.rotation.z += dt * 2.5;
+    });
+
+    // Handcraft loom + pottery wheel — slow continuous rotation
+    loomPropGroups.forEach(g => {
+      if (g.userData.rotatingPart) {
+        g.userData.rotatingPart.rotation.y += dt * 1.8;
+      }
+      if (g.userData.baseWheel) {
+        g.userData.baseWheel.rotation.y += dt * 1.8;
+      }
+    });
+
+    // Tech drone — orbit Tech zone + rotor spin + gentle vertical bob
+    if (techDrone) {
+      techDrone.userData.phase += techDrone.userData.speed * dt;
+      const d = techDrone.userData;
+      techDrone.position.x = d.center.x + Math.cos(d.phase) * d.radius;
+      techDrone.position.z = d.center.z + Math.sin(d.phase) * d.radius;
+      techDrone.position.y = 7 + Math.sin(d.phase * 1.4) * 0.6;
+      techDrone.rotation.y = -d.phase + Math.PI / 2;
+      // Spin rotors
+      techDrone.children.forEach(c => {
+        if (c.userData && c.userData.spinning) c.rotation.y += dt * 25;
+      });
+    }
+
+    // Flag wave
+    flagMeshes.forEach(f => {
+      const pos = f.geometry.attributes.position;
+      const base = f.userData.basePositions;
+      for (let i = 0; i < pos.count; i++) {
+        const ox = base[i * 3];
+        const oy = base[i * 3 + 1];
+        const wave = Math.sin(t * 3 + ox * 0.8 + f.userData.phase) * (ox / 5) * 0.35;
+        pos.setZ(i, wave);
+      }
+      pos.needsUpdate = true;
+    });
+
+    // LED wall frame cycle
+    ledTimer += dt;
+    if (ledTimer > 3.2) {
+      ledTimer = 0;
+      ledFrame = (ledFrame + 1) % 3;
+      drawLED(ledFrame);
+      ledTex.needsUpdate = true;
+    }
+
+    // Stage spotlight subtle flicker
+    stageLight.intensity = (state.dusk ? 2.8 : 0.4) + Math.sin(t * 2.6) * 0.15;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Hide loader once the first frame renders
+  setTimeout(() => {
+    const inst = document.getElementById('map-instruction');
+    if (inst) {
+      inst.innerHTML = '<span style="letter-spacing:0.18em">Drag · Scroll · Click zones</span>';
+      setTimeout(() => inst.classList.remove('visible'), 3200);
+    }
+  }, 1800);
+})();
+</script>
+
+</body>
+</html>
