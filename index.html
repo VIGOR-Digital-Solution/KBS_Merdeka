@@ -2744,15 +2744,15 @@ window.addEventListener('load', () => {
     new THREE.PlaneGeometry(28, 15.75),
     new THREE.MeshBasicMaterial({ map: ledTex })
   );
-  ledWall.position.set(0, 11, -8.7);
+  ledWall.position.set(0, 11, -8.6);
   stageGroup.add(ledWall);
 
-  // LED wall frame (black bezel)
+  // LED wall frame (black bezel) — pushed back to avoid z-fighting with the wall plane
   const ledFrame = new THREE.Mesh(
     new THREE.BoxGeometry(28.6, 16.35, 0.3),
     new THREE.MeshStandardMaterial({ color: 0x0a0a12, roughness: 0.4 })
   );
-  ledFrame.position.set(0, 11, -8.85);
+  ledFrame.position.set(0, 11, -8.9);
   stageGroup.add(ledFrame);
 
   // Truss frame — big rectangular goalpost
